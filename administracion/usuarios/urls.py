@@ -6,6 +6,11 @@ except Exception as e:
 from usuarios.views import *
 from . import views
 from django.contrib.auth.decorators import login_required
+from rest_framework.routers import DefaultRouter
+from .viewsets import *
+router = DefaultRouter()
+router.register(r'ninos',NinoViewSet)
+
 
 
 urlpatterns = [
@@ -22,5 +27,7 @@ urlpatterns = [
     url(r'^guardar_cambio_nino',login_required(views.save_edit_nino), name='guardar_cambio_nino'),
     url(r'^eliminar_club', login_required(views.delete_nino), name='eliminar_nino'),
     url(r'^children', login_required(views.NinosView.as_view()), name='children'),
+	url(r'^api/', include(router.urls)),
+	url(r'^api/ninoauth/', NinoAuth.as_view())
 
 ]

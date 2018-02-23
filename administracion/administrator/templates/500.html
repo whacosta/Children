@@ -1,0 +1,125 @@
+{% extends "starter.html" %}
+{% load static %}
+{% block css %}
+
+  <!-- modales para la página de clubes -->
+  <link href="{% static 'dist/main/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dist/main/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static 'dist/main/plugins/dropify-master/dist/css/dropify.min.css' %}">
+  <link href="{% static 'dist/main/plugins/icheck/css/skins/all.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/page-error2.min.css' %}"  rel="stylesheet" type="text/css">
+
+{% endblock %}
+  
+    
+      <!-- CONTENT STARTS -->
+      {% block contenido %}
+        <!-- CONTENT STARTS -->
+      <div class="content">
+        <div class="page-title-wrapper">
+          <h2 class="page-title">Error Page 500</h2>
+        </div><!-- /.page-titile-wrapper -->
+        <div class="error-wrapper">
+          <span class="error-status">500</span>
+          <h1>Ups</h1>
+          <p class="lead">Error interno del servidor</p>
+          <div class="error-item">
+    
+            <a href="{% url 'home' %}" class="btn btn-primary-outline border-bottom-bold">Volver al inicio</a>
+          </div>
+    
+        </div><!-- /.error-wrapper -->
+      </div>
+      <!-- CONTENT ENDS -->
+
+      {% endblock %}
+      <!-- CONTENT ENDS -->
+    
+    <!-- CONTENT WRAPPER ENDS -->
+
+
+    <div  class="chat">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropup">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Chat
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">
+                Clubes abiertos
+              </li><!-- /.dropdown-header -->
+
+              <li class="chat-mediano">
+                <ul class="list-dropdown-content list-dropdown-messages">
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-1">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            
+                            <strong class="text-primary">Club # 1</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-2">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            
+                            <strong class="text-primary">Club # 2</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club ">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-3">
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <strong class="text-primary">Club # 3</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-4">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <strong class="text-primary">Club # 4</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li><!-- /.dropdown -->
+     </ul>
+    </div>
+{% block js %}
+
+   
+
+{% endblock %}

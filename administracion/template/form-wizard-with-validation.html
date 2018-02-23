@@ -1,0 +1,2591 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WiseBoard : Wizard Plugin</title>
+    <!-- REQUIRED STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="../../dist/main/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- REQUIRED PLUGINS -->
+    <link href="../../dist/main/plugins/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../dist/main/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+    <link href="../../dist/main/plugins/icheck/css/skins/all.css" rel="stylesheet" type="text/css">
+    <link href="../../dist/main/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="../../dist/main/plugins/select2/select2-bootstrap-theme/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- main.min.css - WISEBOARD CORE CSS -->
+    <link href="../../dist/main/css/main.min.css" rel="stylesheet" type="text/css">
+    <!-- plugins.min.css - ALL PLUGINS CUSTOMIZATIONS -->
+    <link href="../../dist/main/css/plugins.min.css" rel="stylesheet" type="text/css">
+    <!-- admin.min.css - ADMIN LAYOUT -->
+    <link href="css/admin.min.css" rel="stylesheet" type="text/css">
+    <!-- theme-default.min.css - DEFAULT THEME -->
+    <link href="css/theme-default.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  
+    <!-- TOP NAVIGATION STARTS -->
+    <nav class="navbar navbar-fixed-top navbar-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="dashboard1.html">
+            <img src="img/logo.svg" alt="logo">
+          </a>
+          <button type="button" class="sidebar-toggle rounded">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div><!-- /.navbar-header -->
+
+        <form class="navbar-form navbar-left" autocomplete="off">
+          <div class="input-group input-group-sm rounded">
+            <input type="text" class="form-control" placeholder="Search">
+            <span class="input-group-btn">
+              <button type="submit" class="btn">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div><!-- /input-group -->
+        </form><!-- /.navbar-form -->
+        
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell flat-shadow"></i>
+              <span class="label circle">4</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">
+                You have 3 <a href="page-profile.html">notifications.</a>
+              </li><!-- /.dropdown-header -->
+
+              <li>
+                <ul class="list-dropdown-content list-dropdown-notifications">
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <span class="label label-success circle">
+                            <i class="fa fa-power-off"></i>
+                          </span>
+                        </div>
+                        <div class="media-body">
+                          <i class="pull-right">1 min</i> Servers restarted successfully.
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <span class="label label-info circle">
+                            <i class="fa fa-user"></i>
+                          </span>
+                        </div>
+                        <div class="media-body">
+                          <i class="pull-right">2 min</i> New user registered.
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <span class="label label-danger circle">
+                            <i class="fa fa-undo"></i>
+                          </span>
+                        </div>
+                        <div class="media-body">
+                          <i class="pull-right">4 min</i> Backup error.
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <span class="label label-primary circle">
+                            <i class="fa fa-gear"></i>
+                          </span>
+                        </div>
+                        <div class="media-body">
+                          <i class="pull-right">7 min</i> Settings updated.
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <span class="label label-warning circle">
+                            <i class="fa fa-exclamation"></i>
+                          </span>
+                        </div>
+                        <div class="media-body">
+                          <i class="pull-right">9 min</i> Application is not responding.
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <span class="label label-success circle">
+                            <i class="fa fa-cube"></i>
+                          </span>
+                        </div>
+                        <div class="media-body">
+                          <i class="pull-right">12 min</i> Weekly dump created successfully.
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul><!-- /.dropdown-menu -->
+          </li><!-- /.dropdown -->
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope flat-shadow"></i>
+              <span class="label circle">3</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">
+                You have 3 new <a href="page-inbox.html">messages.</a>
+              </li><!-- /.dropdown-header -->
+
+              <li>
+                <ul class="list-dropdown-content list-dropdown-messages">
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <i class="pull-right">1 min</i>
+                            <strong class="text-primary">Nancy Allen</strong>
+                          </h6>
+                          <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <i class="pull-right">2 min</i>
+                            <strong class="text-primary">Michael Spencer</strong>
+                          </h6>
+                          <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <i class="pull-right">5 min</i>
+                            <strong class="text-primary">Jessica Parker</strong>
+                          </h6>
+                          <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <i class="pull-right">7 min</i>
+                            <strong class="text-primary">Michael Spencer</strong>
+                          </h6>
+                          <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left">
+                          <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <i class="pull-right">10 min</i>
+                            <strong class="text-primary">Nancy Allen</strong>
+                          </h6>
+                          <span class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li><!-- /.dropdown -->
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-tasks flat-shadow"></i>
+              <span class="label circle">7</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">
+                2 <a href="page-todo.html">projects</a> of 3 are not completed.
+              </li><!-- /.dropdown-header -->
+
+              <li>
+                <ul class="list-dropdown-content list-dropdown-tasks">
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <h6>
+                        <i class="pull-right">1 min</i>
+                        <strong>Landing page design</strong>
+                      </h6>
+                      <p>The project includes landing page design, frontend &amp; backend development.</p>
+                        
+                      <div class="progress rounded">
+                        <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 100%">
+                        </div>
+                      </div>
+                      <small>Project end: 03.03.2017</small>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <h6>
+                        <i class="pull-right">4 min</i>
+                        <strong>Frontend app</strong>
+                      </h6>
+                      <p>Frontend development, responsiveness fixes, sidebar css cleanup.</p>
+                        
+                      <div class="progress rounded">
+                        <div class="progress-bar progress-bar-primary progress-bar-striped" style="width: 70%">
+                        </div>
+                      </div>
+                      <small>Project end: 25.02.2017</small>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-click="prevent">
+                      <h6>
+                        <i class="pull-right">7 min</i>
+                        <strong>Backend development</strong>
+                      </h6>
+                      <p>Backend development, database engineering, domain &amp; hosting.</p>
+                        
+                      <div class="progress rounded">
+                        <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 90%">
+                        </div>
+                      </div>
+                      <small>Project end: 20.02.2017</small>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li><!-- /.dropdown -->
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="img/profile-sm.png" alt="avatar" class="img-circle">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-profile">
+              <li class="dropdown-header">Account Details</li>
+              <li>
+                <div class="media">
+                  <div class="media-left">
+                    <img src="img/profile-lg.png" alt="avatar" class="media-object img-circle">
+                  </div>
+                  <div class="media-body">
+                    <h5 class="media-heading">Sandra Baker</h5>
+                    <p>sandrabaker@gmail.com</p>
+                    <a href="page-profile.html" class="btn btn-primary btn-xs">View profile</a>
+                  </div>
+                </div><!-- /.media -->
+              </li>
+
+              <li>
+                <a href="page-inbox.html">
+                  <i class="fa fa-paper-plane-o"></i> Inbox
+                </a>
+              </li>
+              <li>
+                <a href="page-timeline.html">
+                  <i class="fa fa-history"></i> Timeline
+                </a>
+              </li>
+              <li>
+                <a href="plugin-fullcalendar.html">
+                  <i class="fa fa-calendar-check-o"></i> Calendar
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="page-login1.html">
+                  <i class="fa fa-sign-out"></i> Sign Out
+                </a>
+              </li>
+            </ul>
+          </li><!-- /.dropdown -->
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-align-justify flat-shadow"></i>
+            </a>
+            <div class="sidebar-extra">
+              <div class="sidebar-extra-scroller">
+                <ul class="nav nav-tabs solid-tabs">
+                  <li class="active">
+                    <a href="#sidebar-timeline">Timeline</a>
+                  </li>
+                  <li>
+                    <a href="#sidebar-mail">Mail</a>
+                  </li>
+                  <li>
+                    <a href="#sidebar-settings">Settings</a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <div class="tab-pane sidebar-timeline fade in active" id="sidebar-timeline">
+                    <h6>Today</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Nancy A. submitted the <span class="text-highlight">project.</span></p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">7:10PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Michael S. commented on <span class="text-highlight">Hosting options: the best experiences.</span></p>
+                              <div class="text-ellipsis">"No, I wouldn't recommend an unmanaged service to a novice client"</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5:35PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+
+                    <h6>Thursday</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Nancy A. created a new <span class="text-highlight">Urgent project</span> topic.</p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">6:00PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Michael S. replied on <span class="text-highlight">Hosting options: the best experiences.</span></p>
+                              <div class="text-ellipsis">"I agree with Jessica, but I think I have a brilliant idea"</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5:35PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Jessica M. assigned a <span class="text-highlight">project</span> to you.</p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">4:30PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Nancy A. submitted the <span class="text-highlight">project.</span></p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">4:25PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+
+                    <h6>Wednesday</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Jessica M. commented on <span class="text-highlight">Design &amp; Development.</span></p>
+                              <div class="text-ellipsis">"I think this is the most beautiful design we have ever created"</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">4:15PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Nancy A. created a new <span class="text-highlight">Urgent project</span> topic.</p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">6:00PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Michael S. replied on <span class="text-highlight">Hosting options: the best experiences.</span></p>
+                              <div class="text-ellipsis">"I agree with Jessica, but I think I have a brilliant idea"</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5:35PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Nancy A. submitted the <span class="text-highlight">project.</span></p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">4:25PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+
+                    <h6>Tuesday</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Nancy A. submitted the <span class="text-highlight">project.</span></p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">7:10PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Michael S. commented on <span class="text-highlight">Hosting options: the best experiences.</span></p>
+                              <div class="text-ellipsis">"No, I wouldn't recommend an unmanaged service to a novice client"</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5:35PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+
+                    <h6>Monday</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Nancy A. created a new <span class="text-highlight">Urgent project</span> topic.</p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">6:00PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Michael S. replied on <span class="text-highlight">Hosting options: the best experiences.</span></p>
+                              <div class="text-ellipsis">"I agree with Jessica, but I think I have a brilliant idea"</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5:35PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Jessica M. assigned a <span class="text-highlight">project</span> to you.</p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">4:30PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-timeline.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <p>Nancy A. submitted the <span class="text-highlight">project.</span></p>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">4:25PM</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+                  </div><!-- /.tab-pane -->
+
+                  <div class="tab-pane sidebar-mail fade" id="sidebar-mail">
+                    <h6>Today</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Here is the code sample.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/30/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Michael Spencer</span>
+                              <div class="text-ellipsis">Re: Welcome to Wiseboard.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/30/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Your contract started.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/30/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+
+                    <h6>Thursday</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Re: I have sent you the sketch files.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/29/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Jessica Parker</span>
+                              <div class="text-ellipsis">Here is the code sample.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/29/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Michael Spencer</span>
+                              <div class="text-ellipsis">Here are all the design materials.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/29/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Jessica Parker</span>
+                              <div class="text-ellipsis">Here are all the psd files.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/29/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Re: I have sent you the sketch files.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/29/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+
+                    <h6>Wednesday</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Here is the code sample.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/28/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Michael Spencer</span>
+                              <div class="text-ellipsis">Re: Welcome to Wiseboard.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/28/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Your contract started.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/28/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Jessica Parker</span>
+                              <div class="text-ellipsis">Here is the code sample.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/28/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+
+                    <h6>Tuesday</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Re: I have sent you the sketch files.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/27/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Jessica Parker</span>
+                              <div class="text-ellipsis">Here is the code sample.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/27/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Michael Spencer</span>
+                              <div class="text-ellipsis">Here are all the design materials.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/27/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar1.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Jessica Parker</span>
+                              <div class="text-ellipsis">Here are all the psd files.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/27/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Re: I have sent you the sketch files.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/27/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+
+                    <h6>Monday</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Here is the code sample.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/26/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar2.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Michael Spencer</span>
+                              <div class="text-ellipsis">Re: Welcome to Wiseboard.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/26/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                      <li>
+                        <a href="page-inbox.html">
+                          <div class="media">
+                            <div class="media-left">
+                              <img src="img/avatar3.png" alt="avatar" class="media-object img-circle">
+                            </div><!-- /.media-left -->
+                            <div class="media-body">
+                              <span>Nancy Allen</span>
+                              <div class="text-ellipsis">Your contract started.</div>
+                            </div><!-- /.media-body -->
+                            <div class="media-right">5/26/16</div>
+                          </div><!-- /.media -->
+                        </a>
+                      </li>
+                    </ul>
+                  </div><!-- /.tab-pane -->
+
+                  <div class="tab-pane sidebar-settings fade" id="sidebar-settings">
+                    <h6>Settings</h6>
+                    <ul class="list-sidebar-extra">
+                      <li>
+                        Enable notifications
+                        <input type="checkbox" class="bs-switch" data-size="small" checked>
+                      </li>
+                      <li>
+                        Enable reports
+                        <input type="checkbox" class="bs-switch" data-size="small" checked>
+                      </li>
+                      <li>
+                        Enable alerts
+                        <input type="checkbox" class="bs-switch" data-size="small">
+                      </li>
+                      <li>
+                        Enable Cookies
+                        <input type="checkbox" class="bs-switch" data-size="small" checked>
+                      </li>
+                      <li>
+                        Enable SMTP
+                        <input type="checkbox" class="bs-switch" data-size="small">
+                      </li>
+                      <li>
+                        Enable upload
+                        <input type="checkbox" class="bs-switch" data-size="small">
+                      </li>
+                      <li>
+                        Enable backup
+                        <input type="checkbox" class="bs-switch" data-size="small">
+                      </li>
+                      <li>
+                        Enable mail
+                        <input type="checkbox" class="bs-switch" data-size="small">
+                      </li>
+                      <li>
+                        Enable chat
+                        <input type="checkbox" class="bs-switch" data-size="small" checked>
+                      </li>
+                    </ul>
+                  </div><!-- /.tab-pane -->
+                </div>
+              </div><!-- /.sidebar-extra-scroller -->
+            </div><!-- /.sidebar-extra -->
+          </li><!-- /.dropdown -->
+        </ul><!-- /.navbar-nav -->
+      </div>
+    </nav>
+    <!-- TOP NAVIGATION ENDS -->
+
+    <!-- CONTENT WRAPPER STARTS ( INCLUDES LEFT SIDEBAR AND CONTENT PART OF THE PAGE ) -->
+    <div class="content-wrapper">
+      <!-- SIDEBAR STARTS -->
+      <div class="sidebar">
+        <ul class="sidebar-nav">
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-home"></i>
+              <span>Dashboard</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="dashboard1.html">
+                  <i class="fa fa-bar-chart"></i>
+                  <span>Dashboard 1</span>
+                </a>
+              </li>
+              <li>
+                <a href="dashboard2.html">
+                  <i class="fa fa-line-chart"></i>
+                  <span>Dashboard 2</span>
+                </a>
+              </li>
+              <li>
+                <a href="dashboard3.html">
+                  <i class="fa fa-area-chart"></i>
+                  <span>Dashboard 3</span>
+                </a>
+              </li>
+              <li>
+                <a href="dashboard4.html">
+                  <i class="fa fa-pie-chart"></i>
+                  <span>Dashboard 4</span>
+                </a>
+              </li>
+              <li>
+                <a href="dashboard5.html">
+                  <i class="fa fa-tasks"></i>
+                  <span>Dashboard 5</span>
+                </a>
+              </li>
+              <li>
+                <a href="dashboard6.html">
+                  <i class="fa fa-list-ol"></i>
+                  <span>Dashboard 6</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="title">Core Package</li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-puzzle-piece"></i>
+              <span>Components</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="buttons.html">
+                  Buttons
+                </a>
+              </li>
+              <li>
+                <a href="buttons-extra.html">
+                  Buttons Extra
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-ladda.html">
+                  Spinner Buttons
+                </a>
+              </li>
+              <li>
+                <a href="labels-badges.html">
+                  Labels &amp; Badges
+                </a>
+              </li>
+              <li>
+                <a href="tabs.html">
+                  Tabs
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-tabdrop.html">
+                  Tabdrop
+                </a>
+              </li>
+              <li>
+                <a href="modals.html">
+                  Modals
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-modal.html">
+                  Advanced Modals
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootbox.html">
+                  Bootbox Modals
+                </a>
+              </li>
+              <li>
+                <a href="steps.html">
+                  Steps
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-wizard.html">
+                  Steps Wizard
+                </a>
+              </li>
+              <li>
+                <a href="alerts.html">
+                  Alerts
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-notify.html">
+                  Bootstrap Notify
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-sweetalert.html">
+                  Bootstrap Sweetalert
+                </a>
+              </li>
+              <li>
+                <a href="plugin-toastr.html">
+                  Toastr Alerts
+                </a>
+              </li>
+              <li>
+                <a href="plugin-blockui.html">
+                  Block UI
+                </a>
+              </li>
+              <li>
+                <a href="pricing.html">
+                  Pricing
+                </a>
+              </li>
+              <li>
+                <a href="plugin-sortable-lists.html">
+                  Sortable Lists
+                </a>
+              </li>
+              <li>
+                <a href="typography.html">
+                  Typography
+                </a>
+              </li>
+              <li>
+                <a href="plugin-cookiebar.html">
+                  Cookie Bar
+                </a>
+              </li>
+              <li>
+                <a href="other-components.html">
+                  Other Components
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-check-square-o"></i>
+              <span>Form Elements</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="form.html">
+                  Form Components
+                </a>
+              </li>
+              <li>
+                <a href="form-validation.html">
+                  Form Validation
+                </a>
+              </li>
+              <li>
+                <a href="form-wizard-with-validation.html">
+                  Form Wizard With Validation
+                </a>
+              </li>
+              <li>
+                <a href="form-layouts.html">
+                  Form Layouts
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-touchspin.html">
+                  Bootstrap Touchspin
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-tagsinput.html">
+                  Bootstrap Tagsinput
+                </a>
+              </li>
+              <li>
+                <a href="plugin-jquery-inputmask.html">
+                  Inputmask
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-select.html">
+                  Bootstrap Select
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-selectsplitter.html">
+                  Bootstrap Select Splitter
+                </a>
+              </li>
+              <li>
+                <a href="plugin-select2.html">
+                  Select2
+                </a>
+              </li>
+              <li>
+                <a href="plugin-multi-select.html">
+                  Multiselect
+                </a>
+              </li>
+              <li>
+                <a href="plugin-typeahead.html">
+                  Autocomplete
+                </a>
+              </li>
+              <li>
+                <a href="plugin-icheck.html">
+                  Icheck
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-switch.html">
+                  Bootstrap Switch
+                </a>
+              </li>
+              <li>
+                <a href="plugin-jasny-bootstrap-file-input.html">
+                  File Input
+                </a>
+              </li>
+              <li>
+                <a href="plugin-dropzone-upload.html">
+                  Dropzone Upload
+                </a>
+              </li>
+              <li>
+                <a href="plugin-dropzone-upload-bootstrap-theme.html">
+                  Dropzone Bootstrap Theme
+                </a>
+              </li>
+              <li>
+                <a href="plugins-bootstrap-date-time-pickers.html">
+                  Date &amp; Time Pickers
+                </a>
+              </li>
+              <li>
+                <a href="plugin-combodate.html">
+                  Combodate
+                </a>
+              </li>
+              <li>
+                <a href="plugin-x-editable.html">
+                  X-Editable
+                </a>
+              </li>
+              <li>
+                <a href="plugins-bootstrap3-wysiwyg-editors.html">
+                  WYSIWYG Editors
+                </a>
+              </li>
+              <li>
+                <a href="plugin-minicolors.html">
+                  Colorpicker
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-tokenfield.html">
+                  Bootstrap Tokenfield
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-maxlength.html">
+                  Bootstrap Maxlength
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-list-alt"></i>
+              <span>Panels</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="panels.html">
+                  Default Panels
+                </a>
+              </li>
+              <li>
+                <a href="panels-light.html">
+                  Light Panels
+                </a>
+              </li>
+              <li>
+                <a href="panels-light-bordered.html">
+                  Light Bordered Panels
+                </a>
+              </li>
+              <li>
+                <a href="panels-scrollable.html">
+                  Scrollable Panels
+                </a>
+              </li>
+              <li>
+                <a href="panel-full-height.html">
+                  Full Height Panel
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-table"></i>
+              <span>Tables</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="tables.html">
+                  Basic Tables
+                </a>
+              </li>
+              <li class="dropdown">
+                <a href="#" data-click="prevent">
+                  Datatables
+                </a>
+                <ul class="inner-nav">
+                  <li>
+                    <a href="plugin-datatables-basic.html">
+                      Datatables Basic
+                    </a>
+                  </li>
+                  <li>
+                    <a href="plugin-datatables-individual-search.html">
+                      Datatables Individual Search
+                    </a>
+                  </li>
+                  <li>
+                    <a href="plugin-datatables-extensions.html">
+                      Datatables Extensions
+                    </a>
+                  </li>
+                  <li>
+                    <a href="plugin-datatables-ajax.html">
+                      Ajax Datatables
+                    </a>
+                  </li>
+                  <li>
+                    <a href="plugin-datatables-editable.html">
+                      Datatables Editable
+                    </a>
+                  </li>
+                  <li>
+                    <a href="plugin-datatables-add-remove-rows.html">
+                      Datatables Editable (rows)
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="plugin-table-sortable.html">
+                  Sortable Tables
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="title">Extra Package</li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-diamond"></i>
+              <span>Plugins Extra</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="plugin-fullcalendar.html">
+                  FullCalendar
+                </a>
+              </li>
+              <li>
+                <a href="plugin-treeview.html">
+                  Treeview
+                </a>
+              </li>
+              <li>
+                <a href="plugin-jstree.html">
+                  JsTree
+                </a>
+              </li>
+              <li>
+                <a href="plugin-ion.range-slider.html">
+                  Ion Range Slider
+                </a>
+              </li>
+              <li>
+                <a href="plugin-nouislider.html">
+                  No UI Slider
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-session-timeout.html">
+                  Bootstrap Session Timeout
+                </a>
+              </li>
+              <li>
+                <a href="plugin-pace.html">
+                  Page Progress Loader
+                </a>
+              </li>
+              <li>
+                <a href="plugin-prism.html">
+                  Code Editor
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootpag.html">
+                  Bootpag
+                </a>
+              </li>
+              <li>
+                <a href="plugin-bootstrap-slider.html">
+                  Bootstrap Slider
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-map-marker"></i>
+              <span>Maps</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="plugin-gmaps.html">
+                  Google Maps
+                </a>
+              </li>
+              <li>
+                <a href="plugin-jqvmap.html">
+                  Vector Maps
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-bar-chart"></i>
+              <span>Charts</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="plugin-flot.html">
+                  Flot Charts
+                </a>
+              </li>
+              <li>
+                <a href="plugin-google-chart.html">
+                  Google Charts
+                </a>
+              </li>
+              <li>
+                <a href="plugin-c3.html">
+                  C3 Charts
+                </a>
+              </li>
+              <li>
+                <a href="plugin-chart.js.html">
+                  Chart Js
+                </a>
+              </li>
+              <li>
+                <a href="plugin-chartist-js.html">
+                  Chartist
+                </a>
+              </li>
+              <li>
+                <a href="plugins-easy-pie-sparkline.html">
+                  Sparkline &amp; Easy Pie
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="title">Ecommerce Package</li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Ecommerce</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="ecommerce-dashboard.html">
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="ecommerce-orders.html">
+                  Orders
+                </a>
+              </li>
+              <li>
+                <a href="ecommerce-order-details.html">
+                  Order Details
+                </a>
+              </li>
+              <li>
+                <a href="ecommerce-products.html">
+                  Products
+                </a>
+              </li>
+              <li>
+                <a href="ecommerce-product-add-edit.html">
+                  Product Add/Edit
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="title">Apps</li>
+          <li>
+            <a href="page-inbox.html">
+              <i class="fa fa-envelope-o"></i>
+              <span>Inbox</span>
+            </a>
+          </li>
+          <li>
+            <a href="page-todo.html">
+              <i class="fa fa-calendar-plus-o"></i>
+              <span>To Do</span>
+            </a>
+          </li>
+          <li>
+            <a href="page-events.html">
+              <i class="fa fa-calendar-check-o"></i>
+              <span>Events</span>
+            </a>
+          </li>
+          <li class="title">Pages</li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-clone"></i>
+              <span>Pages</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="page-invoice.html">
+                  Invoice
+                </a>
+              </li>
+              <li>
+                <a href="page-login1.html">
+                  Login 1
+                </a>
+              </li>
+              <li>
+                <a href="page-login2.html">
+                  Login 2
+                </a>
+              </li>
+              <li>
+                <a href="page-login3.html">
+                  Login 3
+                </a>
+              </li>
+              <li>
+                <a href="page-register1.html">
+                  Register 1
+                </a>
+              </li>
+              <li>
+                <a href="page-register2.html">
+                  Register 2
+                </a>
+              </li>
+              <li>
+                <a href="page-register3.html">
+                  Register 3
+                </a>
+              </li>
+              <li>
+                <a href="page-lockscreen1.html">
+                  Lockscreen 1
+                </a>
+              </li>
+              <li>
+                <a href="page-lockscreen2.html">
+                  Lockscreen 2
+                </a>
+              </li>
+              <li>
+                <a href="page-profile.html">
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a href="page-profile-edit.html">
+                  Profile Edit
+                </a>
+              </li>
+              <li>
+                <a href="page-portfolio1.html">
+                  Portfolio 1
+                </a>
+              </li>
+              <li>
+                <a href="page-portfolio2.html">
+                  Portfolio 2
+                </a>
+              </li>
+              <li>
+                <a href="page-search-results1.html">
+                  Search Results 1
+                </a>
+              </li>
+              <li>
+                <a href="page-search-results2.html">
+                  Search Results 2
+                </a>
+              </li>
+              <li>
+                <a href="page-faq.html">
+                  FAQ
+                </a>
+              </li>
+              <li>
+                <a href="page-timeline.html">
+                  Timeline
+                </a>
+              </li>
+              <li>
+                <a href="page-contact.html">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a href="page-coming-soon.html">
+                  Coming Soon
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-bullhorn"></i>
+              <span>Error Pages</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="page-error-404-1.html">
+                  404 Page 1
+                </a>
+              </li>
+              <li>
+                <a href="page-error-404-2.html">
+                  404 Page 2
+                </a>
+              </li>
+              <li>
+                <a href="page-error-404-3.html">
+                  404 Page 3
+                </a>
+              </li>
+              <li>
+                <a href="page-error-404-4.html">
+                  404 Page 4
+                </a>
+              </li>
+              <li>
+                <a href="page-error-500-1.html">
+                  500 Page 1
+                </a>
+              </li>
+              <li>
+                <a href="page-error-500-2.html">
+                  500 Page 2
+                </a>
+              </li>
+              <li>
+                <a href="page-error-500-3.html">
+                  500 Page 3
+                </a>
+              </li>
+              <li>
+                <a href="page-error-500-4.html">
+                  500 Page 4
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-navicon"></i>
+              <span>Multi Level Menu</span>
+            </a>
+            <ul class="inner-nav">
+              <li class="dropdown">
+                <a href="#" data-click="prevent">
+                  Second Level
+                </a>
+                <ul class="inner-nav">
+                  <li class="dropdown">
+                    <a href="#" data-click="prevent">
+                      Third Level
+                    </a>
+                    <ul class="inner-nav">
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" data-click="prevent">
+                  Second Level
+                </a>
+                <ul class="inner-nav">
+                  <li class="dropdown">
+                    <a href="#" data-click="prevent">
+                      Third Level
+                    </a>
+                    <ul class="inner-nav">
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" data-click="prevent">
+                  Second Level
+                </a>
+                <ul class="inner-nav">
+                  <li class="dropdown">
+                    <a href="#" data-click="prevent">
+                      Third Level
+                    </a>
+                    <ul class="inner-nav">
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" data-click="prevent">
+                          Fourth Level
+                        </a>
+                        <ul class="inner-nav">
+                          <li>
+                            <a href="#">
+                              Inner Link 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              Inner Link 3
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="title">Layout Variants</li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-files-o"></i>
+              <span>Page Layouts</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="page-layout-blank-page.html">
+                  Blank Page
+                </a>
+              </li>
+              <li>
+                <a href="page-layout-grey-body.html">
+                  Grey Body
+                </a>
+              </li>
+              <li>
+                <a href="page-layout-navbar-hover-menu.html">
+                  Navbar Hover
+                </a>
+              </li>
+              <li>
+                <a href="page-layout-navbar-static.html">
+                  Navbar Static
+                </a>
+              </li>
+              <li>
+                <a href="page-layout-navbar-language-bar.html">
+                  Navbar Language Bar
+                </a>
+              </li>
+              <li>
+                <a href="page-layout-navbar-without-search.html">
+                  Navbar Without Search
+                </a>
+              </li>
+              <li>
+                <a href="page-layout-navbar-horizontal-menu.html">
+                  Navbar Horizontal Menu
+                </a>
+              </li>
+              <li>
+                <a href="page-layout-fixed-footer.html">
+                  Fixed Footer
+                </a>
+              </li>
+              <li>
+                <a href="page-layout-boxed.html">
+                 Boxed Version
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" data-click="prevent">
+              <i class="fa fa-columns"></i>
+              <span>Sidebar Layouts</span>
+            </a>
+            <ul class="inner-nav">
+              <li>
+                <a href="sidebar-layout-sidebar-hover.html">
+                  Hover Sidebar
+                </a>
+              </li>
+              <li>
+                <a href="sidebar-layout-sidebar-small.html">
+                  Small Sidebar
+                </a>
+              </li>
+              <li>
+                <a href="sidebar-layout-sidebar-fixed.html">
+                  Fixed Sidebar
+                </a>
+              </li>
+              <li>
+                <a href="sidebar-layout-sidebar-search.html">
+                  Search In Sidebar
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- SIDEBAR ENDS -->
+
+      <!-- CONTENT STARTS -->
+      <div class="content">
+        <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li><a href="dashboard1.html"><i class="fa fa-home"></i>Home</a></li>
+            <li class="active">Form Wizard &amp; Validation</li>
+          </ol>
+        </div><!-- /.breadcrumb-wrapper -->
+
+        <div class="page-title-wrapper">
+          <h2 class="page-title">Bootstrap Wizard Plugin With Wiseboard Steps</h2>
+        </div><!-- /.page-titile-wrapper -->
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="panel-action">
+                  <button class="btn btn-close"></button>
+                  <button class="btn btn-min"></button>
+                  <button class="btn btn-expand"></button>
+                </div>
+                <div class="panel-title">Bootstrap Wizard</div>
+              </div><!-- /.panel-heading -->
+
+              <div class="panel-body">
+                <h4 class="m-bottom-30">Step wizard example #1</h4>
+                <form class="form-horizontal m-bottom-30" id="wizard-arrow">
+                  <ul class="list-steps">
+                    <li class="col-sm-4 step-item-arrow active">
+                      <a href="#arrow-one" data-toggle="tab">
+                        <i class="fa fa-lock bg-primary"></i>
+                        <span>Access your account</span>
+                      </a>
+                    </li>
+                    <li class="col-sm-4 step-item-arrow">
+                      <a href="#arrow-two" data-toggle="tab">
+                        <i class="fa fa-gear bg-primary"></i>
+                        <span>Account info</span>
+                      </a>
+                    </li>
+                    <li class="col-sm-4 step-item-arrow">
+                      <a href="#arrow-three" data-toggle="tab">
+                        <i class="fa fa-paypal bg-primary"></i>
+                        <span>Payment</span>
+                      </a>
+                    </li>
+                  </ul>
+                  
+                  <div class="row">
+                    <div class="tab-content col-sm-6 col-sm-offset-2">
+                      <div class="tab-pane active" id="arrow-one">
+                        <div class="form-group">
+                          <label for="inputName1" class="control-label col-sm-4">Full Name</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputName1" name="inputName1">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputEmail1" class="control-label col-sm-4">Email Address</label>
+                          <div class="col-sm-8">
+                            <input type="email" class="form-control" id="inputEmail1" name="inputEmail1">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputPassword1" class="control-label col-sm-4">Password</label>
+                          <div class="col-sm-8">
+                            <input type="password" class="form-control" id="inputPassword1" name="inputPassword1">
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+
+                      <div class="tab-pane" id="arrow-two">
+                        <div class="form-group">
+                          <label for="inputAddress1" class="control-label col-sm-4">Address</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputAddress1" name="inputAddress1">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputCity1" class="control-label col-sm-4">City</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCity1" name="inputCity1">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label class="control-label col-sm-4">Country</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" name="country1" style="width: 100%;">
+                              <option>United States</option>
+                              <option>United Kingdom</option>
+                              <option>Andorra</option>
+                              <option>United Arab Emirates</option>
+                              <option>Afghanistan</option>
+                              <option>Antigua and Barbuda</option>
+                              <option>Albania</option>
+                              <option>Argentina</option>
+                              <option>Belgium</option>
+                              <option>Bulgaria</option>
+                            </select>
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputZip1" class="control-label col-sm-4">ZIP</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputZip1" name="inputZip1">
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+
+                      <div class="tab-pane" id="arrow-three">
+                        <div class="form-group">
+                          <label for="inputCreditCard1" class="control-label col-sm-4">Credit card number</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCreditCard1" name="inputCreditCard1">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label class="control-label col-sm-4">Expirateion year</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" name="year1" style="width: 100%;">
+                              <option>2020</option>
+                              <option>2019</option>
+                              <option>2018</option>
+                              <option>2017</option>
+                              <option>2016</option>
+                            </select>
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="terms1" class="control-label col-sm-4">Checkboxes</label>
+                          <div class="col-sm-8">
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" class="icheck-minimal-grey" id="terms1" name="terms1">
+                                I agree with the Terms Of Use
+                              </label>
+                            </div>
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+                    </div><!-- /.tab-content -->
+                  </div><!-- /.row -->
+                  
+                  <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-warning-outline btn-prev">Previous Step</button>
+                        </div><!-- /.col-sm-6 -->
+
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-info btn-next">Next Step</button>
+                          <button type="button" class="btn btn-block btn-success btn-finish none">Finish</button>
+                        </div><!-- /.col-sm-6 -->
+                      </div><!-- /.row -->
+                    </div><!-- /.col-sm-12 -->
+                  </div><!-- /.row -->
+                </form>
+
+                <hr>
+                <h4 class="m-top-30 m-bottom-30">Step wizard example #2</h4>
+                <form class="form-horizontal" id="wizard-rect">
+                  <ul class="list-steps list-steps-success">
+                    <li class="col-sm-4 step-item-rect active">
+                      <a href="#rect-one" data-toggle="tab">
+                        <span>1</span>
+                        <span>Product one</span>
+                      </a>
+                    </li>
+                    <li class="col-sm-4 step-item-rect">
+                      <a href="#rect-two" data-toggle="tab">
+                        <span>2</span>
+                        <span>Product two</span>
+                      </a>
+                    </li>
+                    <li class="col-sm-4 step-item-rect">
+                      <a href="#rect-three" data-toggle="tab">
+                        <span>3</span>
+                        <span>Product three</span>
+                      </a>
+                    </li>
+                  </ul>
+                  
+                  <div class="row">
+                    <div class="tab-content col-sm-6 col-sm-offset-2">
+                      <div class="tab-pane active" id="rect-one">
+                        <div class="form-group">
+                          <label for="inputName2" class="control-label col-sm-4">Full Name</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputName2" name="inputName2">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputEmail2" class="control-label col-sm-4">Email Address</label>
+                          <div class="col-sm-8">
+                            <input type="email" class="form-control" id="inputEmail2" name="inputEmail2">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputPassword2" class="control-label col-sm-4">Password</label>
+                          <div class="col-sm-8">
+                            <input type="password" class="form-control" id="inputPassword2" name="inputPassword2">
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+
+                      <div class="tab-pane" id="rect-two">
+                        <div class="form-group">
+                          <label for="inputAddress2" class="control-label col-sm-4">Address</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputAddress2" name="inputAddress2">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputCity2" class="control-label col-sm-4">City</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCity2" name="inputCity2">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label class="control-label col-sm-4">Country</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" name="country2" style="width: 100%;">
+                              <option>United States</option>
+                              <option>United Kingdom</option>
+                              <option>Andorra</option>
+                              <option>United Arab Emirates</option>
+                              <option>Afghanistan</option>
+                              <option>Antigua and Barbuda</option>
+                              <option>Albania</option>
+                              <option>Argentina</option>
+                              <option>Belgium</option>
+                              <option>Bulgaria</option>
+                            </select>
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputZip2" class="control-label col-sm-4">ZIP</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputZip2" name="inputZip2">
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+
+                      <div class="tab-pane" id="rect-three">
+                        <div class="form-group">
+                          <label for="inputCreditCard2" class="control-label col-sm-4">Credit card number</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCreditCard2" name="inputCreditCard2">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label class="control-label col-sm-4">Expirateion year</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" name="year2" style="width: 100%;">
+                              <option>2020</option>
+                              <option>2019</option>
+                              <option>2018</option>
+                              <option>2017</option>
+                              <option>2016</option>
+                            </select>
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="terms2" class="control-label col-sm-4">Checkboxes</label>
+                          <div class="col-sm-8">
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" class="icheck-minimal-grey" id="terms2" name="terms2">
+                                I agree with the Terms Of Use
+                              </label>
+                            </div>
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+                    </div><!-- /.tab-content -->
+                  </div><!-- /.row -->
+                  
+                  <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-warning-outline btn-prev">Previous Step</button>
+                        </div><!-- /.col-sm-6 -->
+
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-info btn-next">Next Step</button>
+                          <button type="button" class="btn btn-block btn-success btn-finish none">Finish</button>
+                        </div><!-- /.col-sm-6 -->
+                      </div><!-- /.row -->
+                    </div><!-- /.col-sm-12 -->
+                  </div><!-- /.row -->
+                </form>
+
+                <hr>
+                <h4 class="m-top-30 m-bottom-30">Step wizard example #3</h4>
+                <form class="form-horizontal" id="wizard-circle">
+                  <ul class="list-steps">
+                    <li class="col-sm-4 step-item-circle step-item-primary active">
+                      <a href="#circle-one" data-toggle="tab">
+                        <span class="step">1</span>
+                      </a>
+                    </li>
+                    <li class="col-sm-4 step-item-circle step-item-warning">
+                      <a href="#circle-two" data-toggle="tab">
+                        <span class="step">2</span>
+                      </a>
+                    </li>
+                    <li class="col-sm-4 step-item-circle step-item-success">
+                      <a href="#circle-three" data-toggle="tab">
+                        <span class="step">3</span>
+                      </a>
+                    </li>
+                  </ul>
+                  
+                  <div class="row">
+                    <div class="tab-content col-sm-6 col-sm-offset-2">
+                      <div class="tab-pane active" id="circle-one">
+                        <div class="form-group">
+                          <label for="inputName3" class="control-label col-sm-4">Full Name</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputName3" name="inputName3">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputEmail3" class="control-label col-sm-4">Email Address</label>
+                          <div class="col-sm-8">
+                            <input type="email" class="form-control" id="inputEmail3" name="inputEmail3">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputPassword3" class="control-label col-sm-4">Password</label>
+                          <div class="col-sm-8">
+                            <input type="password" class="form-control" id="inputPassword3" name="inputPassword3">
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+
+                      <div class="tab-pane" id="circle-two">
+                        <div class="form-group">
+                          <label for="inputAddress3" class="control-label col-sm-4">Address</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputAddress3" name="inputAddress3">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputCity3" class="control-label col-sm-4">City</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCity3" name="inputCity3">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label class="control-label col-sm-4">Country</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" name="country3" style="width: 100%;">
+                              <option>United States</option>
+                              <option>United Kingdom</option>
+                              <option>Andorra</option>
+                              <option>United Arab Emirates</option>
+                              <option>Afghanistan</option>
+                              <option>Antigua and Barbuda</option>
+                              <option>Albania</option>
+                              <option>Argentina</option>
+                              <option>Belgium</option>
+                              <option>Bulgaria</option>
+                            </select>
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputZip3" class="control-label col-sm-4">ZIP</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputZip3" name="inputZip3">
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+
+                      <div class="tab-pane" id="circle-three">
+                        <div class="form-group">
+                          <label for="inputCreditCard3" class="control-label col-sm-4">Credit card number</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCreditCard3" name="inputCreditCard3">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label class="control-label col-sm-4">Expirateion year</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" name="year3" style="width: 100%;">
+                              <option>2020</option>
+                              <option>2019</option>
+                              <option>2018</option>
+                              <option>2017</option>
+                              <option>2016</option>
+                            </select>
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="terms3" class="control-label col-sm-4">Checkboxes</label>
+                          <div class="col-sm-8">
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" class="icheck-minimal-grey" id="terms3" name="terms3">
+                                I agree with the Terms Of Use
+                              </label>
+                            </div>
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+                    </div><!-- /.tab-content -->
+                  </div><!-- /.row -->
+                  
+                  <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-warning-outline btn-prev">Previous Step</button>
+                        </div><!-- /.col-sm-6 -->
+
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-info btn-next">Next Step</button>
+                          <button type="button" class="btn btn-block btn-success btn-finish none">Finish</button>
+                        </div><!-- /.col-sm-6 -->
+                      </div><!-- /.row -->
+                    </div><!-- /.col-sm-12 -->
+                  </div><!-- /.row -->
+                </form>
+
+                <hr>
+                <h4 class="m-top-30 m-bottom-30">Step wizard example #4</h4>
+                <form class="form-horizontal" id="wizard-line">
+                  <ul class="list-steps list-steps-primary">
+                    <li class="col-sm-4 step-item-line active">
+                      <i class="fa fa-battery-1"></i>
+                      <span class="block">Step one</span>
+                      <a href="#line-one" data-toggle="tab"></a>
+                    </li>
+                    <li class="col-sm-4 step-item-line">
+                      <i class="fa fa-battery-half"></i>
+                      <span class="block">Step two</span>
+                      <a href="#line-two" data-toggle="tab"></a>
+                    </li>
+                    <li class="col-sm-4 step-item-line">
+                      <i class="fa fa-battery-full"></i>
+                      <span class="block">Step three</span>
+                      <a href="#line-three" data-toggle="tab"></a>
+                    </li>
+                  </ul>
+                  
+                  <div class="row">
+                    <div class="tab-content col-sm-6 col-sm-offset-2">
+                      <div class="tab-pane active" id="line-one">
+                        <div class="form-group">
+                          <label for="inputName4" class="control-label col-sm-4">Full Name</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputName4" name="inputName4">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputEmail4" class="control-label col-sm-4">Email Address</label>
+                          <div class="col-sm-8">
+                            <input type="email" class="form-control" id="inputEmail4" name="inputEmail4">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputPassword4" class="control-label col-sm-4">Password</label>
+                          <div class="col-sm-8">
+                            <input type="password" class="form-control" id="inputPassword4" name="inputPassword4">
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+
+                      <div class="tab-pane" id="line-two">
+                        <div class="form-group">
+                          <label for="inputAddress4" class="control-label col-sm-4">Address</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputAddress4" name="inputAddress4">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputCity4" class="control-label col-sm-4">City</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCity4" name="inputCity4">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label class="control-label col-sm-4">Country</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" name="country4" style="width: 100%;">
+                              <option>United States</option>
+                              <option>United Kingdom</option>
+                              <option>Andorra</option>
+                              <option>United Arab Emirates</option>
+                              <option>Afghanistan</option>
+                              <option>Antigua and Barbuda</option>
+                              <option>Albania</option>
+                              <option>Argentina</option>
+                              <option>Belgium</option>
+                              <option>Bulgaria</option>
+                            </select>
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="inputZip4" class="control-label col-sm-4">ZIP</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputZip4" name="inputZip4">
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+
+                      <div class="tab-pane" id="line-three">
+                        <div class="form-group">
+                          <label for="inputCreditCard4" class="control-label col-sm-4">Credit card number</label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputCreditCard4" name="inputCreditCard4">
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label class="control-label col-sm-4">Expirateion year</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" name="year4" style="width: 100%;">
+                              <option>2020</option>
+                              <option>2019</option>
+                              <option>2018</option>
+                              <option>2017</option>
+                              <option>2016</option>
+                            </select>
+                          </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                          <label for="terms4" class="control-label col-sm-4">Checkboxes</label>
+                          <div class="col-sm-8">
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" class="icheck-minimal-grey" id="terms4" name="terms4">
+                                I agree with the Terms Of Use
+                              </label>
+                            </div>
+                          </div>
+                        </div><!-- /.form-group -->
+                      </div><!-- /.tab-pane -->
+                    </div><!-- /.tab-content -->
+                  </div><!-- /.row -->
+                  
+                  <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-warning-outline btn-prev">Previous Step</button>
+                        </div><!-- /.col-sm-6 -->
+
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-info btn-next">Next Step</button>
+                          <button type="button" class="btn btn-block btn-success btn-finish none">Finish</button>
+                        </div><!-- /.col-sm-6 -->
+                      </div><!-- /.row -->
+                    </div><!-- /.col-sm-12 -->
+                  </div><!-- /.row -->
+                </form>
+              </div><!-- /.panel-body -->
+            </div><!--/.panel-->
+          </div><!-- /.col-sm-12 -->
+        </div><!-- /.row -->
+      </div>
+      <!-- CONTENT ENDS -->
+    </div>
+    <!-- CONTENT WRAPPER ENDS -->
+    
+    <!-- FOOTER STARTS -->
+    <div class="footer">&copy; Copyright 2017 <span class="divider">|</span> <span class="hidden-xs">Wiseboard Theme by The Next Theme</span> <span class="divider hidden-xs">|</span> All rights reserved.</div>
+    <!-- FOOTER ENDS -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <script src="../../dist/main/js/jquery.min.js"></script>
+    <script src="../../dist/main/js/bootstrap.min.js"></script>
+    <!-- REQUIRED PLUGINS -->
+    <script src="../../dist/main/plugins/jquery.slimscroll/js/jquery.slimscroll.min.js"></script>
+    <script src="../../dist/main/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="../../dist/main/plugins/jquery.succinct/js/jquery.succinct.min.js"></script>
+    <script src="../../dist/main/plugins/icheck/js/icheck.min.js"></script>
+    <script src="../../dist/main/plugins/select2/js/select2.full.min.js"></script>
+    <script src="../../dist/main/plugins/bootstrap-wizard/js/jquery.bootstrap.wizard.min.js"></script>
+    <script src="../../dist/main/plugins/jquery.validate/js/jquery.validate.min.js"></script>
+    <!-- main.min.js - WISEBOARD CORE SCRIPT -->
+    <script src="../../dist/main/js/main.min.js"></script>
+    <!-- admin.min.js - GENERAL CONFIGURATION SCRIPT FOR THE PAGES -->
+    <script src="js/admin.min.js"></script>
+    <script src="js/demo/demo-form-wizard-with-validation.js"></script>
+  </body>
+</html>

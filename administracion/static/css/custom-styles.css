@@ -1,0 +1,97 @@
+.m-w-210-px {
+    max-width: 210px;
+}
+.list-ec > label {
+    display: block;
+}
+.list-ec > label a {
+    width: 90%;
+    display: inline-block;
+}
+.list-ec > label button {
+    color: #901f61;
+    border-color: #901f61;
+}
+.list-ec > label button:hover {
+    border-color: #901f61;
+    background-color: #901f61;
+}
+
+
+@media screen and (max-width: 768px) {
+    .m-w-210-px {
+        max-width: 100%;
+    }
+}
+
+.chat{
+    bottom: 26px;
+    direction: ltr;
+    height: 28px;
+    /* left: 13px; */
+    position: fixed;
+    right: 30px;
+    z-index: 300;
+    width: 50px;
+}
+.chat > ul{
+    background: #e6e6e6;
+
+    text-align: center;
+}  
+.chat li{
+  list-style: none;
+}
+.chat-mediano{
+    width: 250px;
+
+}
+.club{
+    padding: 10px 0 10px 0;
+    margin-left: -25px;
+    margin-right: 5px;
+    padding-right: 20px;
+}
+.club-1{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 10px;
+     background: #0c6e9e;
+}
+.club-2{
+    width: 20px;
+    height: 20px;
+        border-radius: 50%;
+        padding: 10px;
+     background: #bd1d00;
+}
+.club-3{
+    width: 20px;
+    height: 20px;
+        border-radius: 50%;
+        padding: 10px;
+     background: #f2f57c;
+}
+.club-4{
+    width: 20px;
+    height: 20px;
+        border-radius: 50%;
+        padding: 10px;
+     background: #7cf59d;
+}
+.chat .media-body{
+    padding-left: 15px;
+}
+.club:hover { 
+    background-color: #909497 !important;
+}
+.chat > .nav{
+    width: 100px;
+}
+.list-dropdown-messages{
+    min-height: 200px !important;
+}
+.chat .list-dropdown-messages{
+    max-width: 220px;
+}

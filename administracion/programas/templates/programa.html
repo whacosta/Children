@@ -1,0 +1,1013 @@
+{% extends "starter.html" %}
+{% load static %}
+{% block css %}
+
+  <!-- modales para la página de programa -->
+  <link href="{% static 'css/jquery-gmaps-latlon-picker.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic" rel="stylesheet"
+    type="text/css">
+  <link href="{% static 'dist/main/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dist/main/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static 'dist/main/plugins/dropify-master/dist/css/dropify.min.css' %}">
+  <link href="{% static 'dist/main/plugins/icheck/css/skins/all.css' %}" rel="stylesheet" type="text/css">
+
+
+{% endblock %}
+  
+    {% block contenido %}
+    <!-- CONTENT STARTS -->
+    <div class="content">
+      <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+          <li><a href="{% url 'programs' %}"><i class="fa fa-home"></i>Home</a></li>
+          <li class="active">{{ programa.nombre }}</li>
+        </ol>
+      </div>
+      <!-- /.breadcrumb-wrapper -->
+
+      <div class="page-title-wrapper">
+        <h2 class="page-title">{{ programa.nombre }}</h2>
+      </div>
+      <!-- /.page-titile-wrapper -->
+
+      <div class="row">
+        <div class="col-sm-12">
+
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-4 m-w-210-px">
+                <ul class="nav nav-tabs solid-tabs nav-stacked rounded">
+                  <li class="active">
+                    <a href="#tabElementosClaves" data-toggle="tab">
+                              <i class="fa fa-home m-right-10"></i> Elementos Claves
+                            </a>
+                  </li>
+                  <li>
+                    <a href="#tabClubes" data-toggle="tab">
+                              <i class="fa fa-user m-right-10"></i> Clubes
+                            </a>
+                  </li>
+                  <li>
+                    <a href="#tabRecursosClaves" data-toggle="tab">
+                              <i class="fa fa-info-circle m-right-10"></i> Recursos claves
+                            </a>
+                  </li>
+                  <li>
+                    <a id="mapa" href="#tabMapa" data-toggle="tab" onclick="">
+                              <i class="fa fa-map-marker m-right-10"></i> Mapa
+                            </a>
+                  </li>
+                </ul>
+              </div>
+              <!-- /.col-sm-3 -->
+              <div class="tab-content">
+                <!-- TAB ELEMENTOS CLAVES -->
+                <div class="col-sm-8 tab-pane fade in active" id="tabElementosClaves">
+                  <div class="tab-content">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded">
+                                <i class="fa fa-trash"></i>
+                                <a data-toggle="modal" data-target="#modalEliminarElementoClave">Eliminar</a>
+                              </button>
+
+                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded" style="margin-left:12px">
+                                <i class="fa fa-plus"></i>
+                                <a data-toggle="modal" data-target="#modalAgregarElemento">Agregar Elemento</a>
+                              </button>
+                        <!--<div class="panel-title">List Group</div>-->
+                      </div>
+                      <!-- /.panel-heading -->
+                      <!--<div class="tab-pane active fade in" id="tab-stacked-home3Rounded">-->
+                      <div class="panel-body">
+
+                        <div class="list-group m-bottom-30">
+                          <div class="form-group list-ec" id="listElementos">
+                            {% if elementos_clave %}
+                            {% for el in elementos_clave %}
+                            <label>
+                              
+                              <input type="checkbox" class="icheck-minimal-grey" name="lista_elementos[]" value="{{el.pk}}" >
+                              <a href="{% url 'elemento_clave' programa=programa.slug elemento_clave=el.slug %}" class="list-group-item" style="width:80%">{{el.nombre}}</a>
+                              <button type="button" class="btn btn-info-outline" style="margin-left:2%">
+                                 <a href="javascript:void(0)" onclick="editar('{{el.id}}')" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></a>
+                              </button>
+                             
+                            </label> 
+                            {% endfor %}
+                            {% else %}
+                            <label>
+                              No hay elementos claves para este programa
+                            </label>
+                            {% endif %} 
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal Eliminar -->
+                      <div class="modal fade" id="modalEliminarElementoClave" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Eliminar Elemento Clave</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <h4>¿Est&aacute; seguro que desea eliminar los elementos seleccionados?</h4>
+                              <p>Una vez realizada esta acci&oacute;n no podr&aacute; recuperar los datos eliminados
+                              </p>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" onclick="eliminarElementoClave();"  class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            
+                            </div>
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+                      <!-- Modal Agregar -->
+                      <div class="modal fade" id="modalAgregarElemento" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Agregar Elemento Clave</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                                    <div class="modal-body">
+                                    <form id="form_elemento" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return guardarElementoClave();">{% csrf_token %}
+                                    {% if formulario_elemento %}
+                                  
+
+                                     <div class="">
+                                      
+                                      <div class="input-group input-icon-right">
+                                          <div class="radio">
+                                              <label>
+                                               <input type="hidden" name="programa" id="programa" value="{{ programa.nombre }}">
+                                              </label>
+                                            </div>          
+                                      </div>
+                                    </div><!-- /.form-group -->
+
+                                {{ formulario_elemento.nombre.errors }}
+                                  <div class="">
+                                    <label for="{{ formulario_elemento.name }}">{{ formulario_elemento.nombre.label }}</label> 
+                                    <div class="input-group input-icon-right">
+                                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                    {{ formulario_elemento.nombre }}
+                                      <i class="fa fa-times input-icon none"></i>
+                                    </div>
+                                  </div>
+
+                                  {{ formulario_elemento.orden.errors }}
+                                  <div class="">
+                                    <label for="{{ formulario_elemento.name }}">{{ formulario_elemento.orden.label }}</label> 
+                                    <div class="input-group input-icon-right">
+                                    <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                                    {{ formulario_elemento.orden }}
+                                      <i class="fa fa-times input-icon none"></i>
+                                    </div>
+                                  </div>
+
+
+                                  {{ formulario_elemento.color.errors }}
+                                  <div class="">
+                                    <label for="{{ formulario_elemento.name }}">{{ formulario_elemento.color.label }}</label> 
+                                    <div class="input-group input-icon-right">
+                                    <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                                    {{ formulario_elemento.color }}
+                                      <i class="fa fa-times input-icon none"></i>
+                                    </div>
+                                  </div>
+                                 
+                               {% endif %}
+                                </br>
+                                     <div class="modal-footer">
+
+                                      <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+                        
+                                      <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                            </form>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+
+                      <!--</div>-->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+                  <!-- /.col-sm-8 -->
+                </div>
+                <!-- /.row -->
+                <!-- FINAL TAB ELEMENTOS CLAVES -->
+
+                <!-- TAB CLUBES -->
+                <div class="col-sm-8 tab-pane fade" id="tabClubes">
+                  <div class="tab-content">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                           Lista de clubes                        <!--<div class="panel-title">List Group</div>-->
+                      </div>
+                      <!-- /.panel-heading -->
+                      <!--<div class="tab-pane active fade in" id="tab-stacked-home3Rounded">-->
+                      <div class="panel-body">
+                        <div class="list-group m-bottom-30">
+                          <div class="form-group list-ec">
+                            {% if clubes %}
+                              {% for c in clubes %}
+                                <label>
+                                  <a href="{% url 'club' club=c.slug %}" class="list-group-item" style="width:80%">{{c.nombre}}</a>
+                                </label>
+                              {% endfor %}
+                            {% else %}
+                              <label>No hay clubes asociados a este programa</label>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal Eliminar Club-->
+                      <div class="modal fade" id="modalEliminarClub" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Eliminar Club</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <h4>¿Est&aacute; seguro que desea eliminar los clubes seleccionados?</h4>
+                              <p>Una vez realizada esta acci&oacute;n no podr&aacute; recuperar los datos eliminados
+                              </p>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                            </div>
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+                      <!-- Modal Agregar -->
+                      <div class="modal fade" id="modalAgregarClub" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Agregar Club</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <h4>Introduzca el nombre del nuevo club</h4>
+                              <input type="text" class="form-control" placeholder="Nombre de Club">
+                            </div>
+                            <!-- .modal-body -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                            </div>
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+                      <!--</div>-->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+                  <!-- /.col-sm-8 -->
+                </div>
+                <!-- /.row -->
+                <!-- FINAL TAB CLUBES -->
+
+                <!-- TAB RECURSOS CLAVES -->
+                <div class="col-sm-8 tab-pane fade" id="tabRecursosClaves">
+                  <div class="tab-content">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded">
+                                <i class="fa fa-trash"></i>
+                                <a data-toggle="modal" data-target="#modalEliminarRecurso">Eliminar</a>
+                              </button>
+
+                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded" style="margin-left:12px">
+                                <i class="fa fa-plus"></i>
+                                <a data-toggle="modal" data-target="#modalAgregarRecurso">Agregar Recurso</a>
+                              </button>
+                        <!--<div class="panel-title">List Group</div>-->
+                      </div>
+                      <!-- /.panel-heading -->
+                      <!--<div class="tab-pane active fade in" id="tab-stacked-home3Rounded">-->
+                      <div class="panel-body">
+                        <div class="list-group m-bottom-30">
+                          <div class="form-group list-ec">
+                            <div class="form-group list-ec" id="listRecursos">
+                            {% if recursos_claves %}
+                            {% for r in recursos_claves %}
+                            <label>
+                              
+                              <input type="checkbox" class="icheck-minimal-grey" name="lista_recursos[]" value="{{r.pk}}" >
+                              <a href="#" class="list-group-item" style="width:80%">{{r.nombre}}</a>
+                              <button type="button" class="btn btn-info-outline" style="margin-left:2%">
+                                 <a href="javascript:void(0)" onclick="editar('{{r.id}}')" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></a>
+                              </button>
+                             
+                            </label> 
+                            {% endfor %}
+                            {% else %}
+                            <label>
+                              No hay recursos claves para este programa
+                            </label>
+                            {% endif %} 
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal Eliminar Recurso -->
+                      <div class="modal fade" id="modalEliminarRecurso" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Eliminar Recurso Clave</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <h4>¿Est&aacute; seguro que desea eliminar los recursos seleccionados?</h4>
+                              <p>Una vez realizada esta acci&oacute;n no podr&aacute; recuperar los datos eliminados
+                              </p>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" onclick="eliminarRecursoClave();"  class="btn btn-primary" data-dismiss="modal">Aceptar</button>                            
+                            </div>
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+                      <!-- Modal Agregar -->
+                      <div class="modal fade" id="modalAgregarRecurso" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Agregar Recurso Clave</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                               <form method="POST" enctype="multipart/form-data" action='{% url "programa" programa=programa.slug %}'> 
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                                  <button type="submit" class="btn btn-primary">Aceptar</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                            <!-- .modal-body -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+                      <!--</div>-->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+                  <!-- /.col-sm-8 -->
+                </div>
+                <!-- /.row -->
+                <!-- FINAL TAB RECURSOS CLAVES -->
+
+                <!-- TAB MAPA -->
+                <div class="col-sm-8 tab-pane fade" id="tabMapa">
+                  <div class="tab-content">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                       <button class="btn btn-default-outline btn-labeled-left btn-xs rounded">
+                                <i class="fa fa-trash"></i>
+                                <a data-toggle="modal" data-target="#modalEliminarUbicacion">Eliminar</a>
+                              </button>
+                               <button class="btn btn-default-outline btn-labeled-left btn-xs rounded" style="margin-left:12px">
+                                <i class="fa fa-plus"></i>
+                                <a data-toggle="modal" data-target="#modalAgregarMarcador">Agregar Marcador</a>
+                              </button>
+                        <!--<div class="panel-title">List Group</div>-->
+                      </div>
+                      <!-- /.panel-heading -->
+                      <!--<div class="tab-pane active fade in" id="tab-stacked-home3Rounded">-->
+                      <div class="panel-body">
+                        <div class="list-group m-bottom-30">
+                          <div class="form-group list-ec" id="listUbicaciones">
+                            {% if ubicaciones %}
+                            {% for u in  ubicaciones %}
+                            <label>
+                              <input type="checkbox" class="icheck-minimal-grey" name="lista_ubicaciones[]" value="{{u.pk}}" >
+                              <a href="#" class="list-group-item" style="width:80%">{{u.ciudad}}</a>
+                                <button type="button" class="btn btn-info-outline" style="margin-left:2%">
+                                 <a href="javascript:void(0)" onclick="editar('{{u.id}}')" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></a>
+                              </button>
+                            </label>
+                            {% endfor %}
+                            {% else %}
+                            <label> No hay recursos claves asociados a este programa</label>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal Eliminar ubicacion -->
+                      <div class="modal fade" id="modalEliminarUbicacion" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Eliminar Ubicacion Implementacion</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <h4>¿Est&aacute; seguro que desea eliminar las ubicaciones seleccionados?</h4>
+                              <p>Una vez realizada esta acci&oacute;n no podr&aacute; recuperar los datos eliminados
+                              </p>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" onclick="eliminarUbicacionImplementacion();"  class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                            </div>
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+                      <!-- Modal Agregar -->
+                      <div class="modal fade" id="modalAgregarMarcador" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Agregar Marcador</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                               <form method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return guardarUbicacionClave();">{% csrf_token %}
+
+                                    <fieldset class="gllpLatlonPicker">
+                                      <input type="text" class="gllpSearchField" id="ciudad">
+                                      <input type="button" class="gllpSearchButton" value="Buscar ciudad">
+                                      <br/><br/>
+                                      <div class="gllpMap">Google Maps</div>
+                                      <br/>
+                                        <input type="hidden" class="gllpLatitude" id="latitud" value="52"/>
+                                     
+                                        <input type="hidden" class="gllpLongitude" id="longitud" value="1"/>
+                                        <input type="hidden" class="gllpZoom" value="1"/>
+                                      <br/>
+                                    </fieldset>
+
+                                    </br>
+                                     <div class="modal-footer">
+
+                                      <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+                        
+                                      <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+
+                                  </form>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+                      <!--</div>-->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+                  <!-- /.col-sm-8 -->
+                </div>
+                <!-- /.row -->
+                <!-- FINAL TAB MAPA -->
+
+              </div>
+            </div>
+            <!-- /.panel-body -->
+
+          </div>
+          <!-- /.col-sm-12 -->
+        </div>
+        <!-- /.row -->
+
+        <!--<button class="hola btn btn-success">hola</button>-->
+
+
+
+
+      </div>
+      <!-- CONTENT ENDS -->
+    {% endblock %}
+
+    <div class="chat">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropup">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Chat
+            </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header">
+              Clubes abiertos
+            </li>
+            <!-- /.dropdown-header -->
+
+            <li class="chat-mediano">
+              <ul class="list-dropdown-content list-dropdown-messages">
+                <li class="club">
+                  <a href="#" data-click="prevent">
+                    <div class="media">
+                      <div class="media-left club-1">
+                      </div>
+                      <div class="media-body">
+                        <h6 class="media-heading">
+
+                          <strong class="text-primary">Club # 1</strong>
+                        </h6>
+
+                      </div>
+                    </div>
+                    <!-- /.media -->
+                  </a>
+                </li>
+
+                <li class="club">
+                  <a href="#" data-click="prevent">
+                    <div class="media">
+                      <div class="media-left club-2">
+                      </div>
+                      <div class="media-body">
+                        <h6 class="media-heading">
+
+                          <strong class="text-primary">Club # 2</strong>
+                        </h6>
+
+                      </div>
+                    </div>
+                    <!-- /.media -->
+                  </a>
+                </li>
+
+                <li class="club ">
+                  <a href="#" data-click="prevent">
+                    <div class="media">
+                      <div class="media-left club-3">
+                      </div>
+                      <div class="media-body">
+                        <h6 class="media-heading">
+                          <strong class="text-primary">Club # 3</strong>
+                        </h6>
+
+                      </div>
+                    </div>
+                    <!-- /.media -->
+                  </a>
+                </li>
+
+                <li class="club">
+                  <a href="#" data-click="prevent">
+                    <div class="media">
+                      <div class="media-left club-4">
+                      </div>
+                      <div class="media-body">
+                        <h6 class="media-heading">
+                          <strong class="text-primary">Club # 4</strong>
+                        </h6>
+
+                      </div>
+                    </div>
+                    <!-- /.media -->
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!-- /.dropdown -->
+      </ul>
+    </div>
+
+    {% block js %}
+
+    <!-- REQUIRED SCRIPTS -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAP5PUl-9bV9pyCoNzYGMYusqxHGWZG5Xg"></script>
+    <script src="{% static 'dist/main/js/jquery.min.js' %}"></script>
+    <script src="{% static 'dist/main/js/bootstrap.min.js' %}"></script>
+    <!-- REQUIRED PLUGINS -->
+    <script src="{% static 'dist/main/plugins/jquery.slimscroll/js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jquery.succinct/js/jquery.succinct.min.js' %}"></script>
+    <!-- main.min.js - WISEBOARD CORE SCRIPT -->
+    <script src="{% static 'dist/main/js/main.min.js' %}"></script>
+    <!-- admin.min.js - GENERAL CONFIGURATION SCRIPT FOR THE PAGES -->
+    <script src="{% static 'js/admin.js' %}"></script>
+
+
+    <!-- script para la página de aflatoun -->
+    <script src="{% static 'dist/main/plugins/bootstrap-sweetalert/js/sweetalert.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/gmaps/js/gmaps.min.js' %}"></script>
+
+    <script type="text/javascript">
+
+(function($) {
+
+if (!window.console) window.console = {};
+if (!window.console.log) window.console.log = function () { };
+// ^^^
+
+$.fn.gMapsLatLonPicker = (function() {
+
+  var _self = this;
+  _self.params = {
+    defLat : 0,
+    defLng : 0,
+    defZoom : 1,
+    queryLocationNameWhenLatLngChanges: true,
+    queryElevationWhenLatLngChanges: true,
+    mapOptions : {
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false,
+      disableDoubleClickZoom: true,
+      zoomControlOptions: true,
+      streetViewControl: false
+    },
+    strings : {
+      markerText : "Drag this Marker",
+      error_empty_field : "Couldn't find coordinates for this place",
+      error_no_results : "Couldn't find coordinates for this place"
+    },
+    displayError : function(message) {
+      alert(message);
+    }
+  };
+
+  _self.vars = {
+    ID : null,
+    LATLNG : null,
+    map : null,
+    marker : null,
+    geocoder : null
+  };
+
+
+  var setPosition = function(position) {
+    _self.vars.marker.setPosition(position);
+    _self.vars.map.panTo(position);
+
+    $(_self.vars.cssID + ".gllpZoom").val( _self.vars.map.getZoom() );
+    $(_self.vars.cssID + ".gllpLongitude").val( position.lng() );
+    $(_self.vars.cssID + ".gllpLatitude").val( position.lat() );
+
+
+    $(_self.vars.cssID).trigger("location_changed", $(_self.vars.cssID));
+
+    if (_self.params.queryLocationNameWhenLatLngChanges) {
+      getLocationName(position);
+    }
+    if (_self.params.queryElevationWhenLatLngChanges) {
+      getElevation(position);
+    }
+  };
+
+  // for reverse geocoding
+  var getLocationName = function(position) {
+
+    var latlng = new google.maps.LatLng(position.lat(), position.lng());
+    _self.vars.geocoder.geocode({'latLng': latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK && results[1]) {
+        $(_self.vars.cssID + ".gllpLocationName").val(results[1].formatted_address);
+      } else {
+        $(_self.vars.cssID + ".gllpLocationName").val("");
+      }
+      $(_self.vars.cssID).trigger("location_name_changed", $(_self.vars.cssID));
+    });
+  };
+
+
+  // for getting the elevation value for a position
+  var getElevation = function(position) {
+    var latlng = new google.maps.LatLng(position.lat(), position.lng());
+
+    var locations = [latlng];
+
+    var positionalRequest = { 'locations': locations };
+
+    _self.vars.elevator.getElevationForLocations(positionalRequest, function(results, status) {
+      if (status == google.maps.ElevationStatus.OK) {
+        if (results[0]) {
+          $(_self.vars.cssID + ".gllpElevation").val( results[0].elevation.toFixed(3));
+        } else {
+          $(_self.vars.cssID + ".gllpElevation").val("");
+        }
+      } else {
+        $(_self.vars.cssID + ".gllpElevation").val("");
+      }
+      $(_self.vars.cssID).trigger("elevation_changed", $(_self.vars.cssID));
+    });
+  };
+
+  // search function
+  var performSearch = function(string, silent) {
+    if (string == "") {
+      if (!silent) {
+        _self.params.displayError( _self.params.strings.error_empty_field );
+      }
+      return;
+    }
+    _self.vars.geocoder.geocode(
+      {"address": string},
+      function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          $(_self.vars.cssID + ".gllpZoom").val(11);
+          _self.vars.map.setZoom( parseInt($(_self.vars.cssID + ".gllpZoom").val()) );
+          setPosition( results[0].geometry.location );
+        } else {
+          if (!silent) {
+            _self.params.displayError( _self.params.strings.error_no_results );
+          }
+        }
+      }
+    );
+  };
+
+
+  var publicfunc = {
+
+    // INITIALIZE MAP ON DIV //////////////////////////////////////////////////////////////////
+    init : function(object) {
+
+      if ( !$(object).attr("id") ) {
+        if ( $(object).attr("name") ) {
+          $(object).attr("id", $(object).attr("name") );
+        } else {
+          $(object).attr("id", "_MAP_" + Math.ceil(Math.random() * 10000) );
+        }
+      }
+
+      _self.vars.ID = $(object).attr("id");
+      _self.vars.cssID = "#" + _self.vars.ID + " ";
+
+      _self.params.defLat  = $(_self.vars.cssID + ".gllpLatitude").val()  ? $(_self.vars.cssID + ".gllpLatitude").val()   : _self.params.defLat;
+      _self.params.defLng  = $(_self.vars.cssID + ".gllpLongitude").val() ? $(_self.vars.cssID + ".gllpLongitude").val()      : _self.params.defLng;
+      _self.params.defZoom = $(_self.vars.cssID + ".gllpZoom").val()      ? parseInt($(_self.vars.cssID + ".gllpZoom").val()) : _self.params.defZoom;
+
+      _self.vars.LATLNG = new google.maps.LatLng(70,195);
+
+      _self.vars.MAPOPTIONS    = _self.params.mapOptions;
+      _self.vars.MAPOPTIONS.zoom   = 1;
+      _self.vars.MAPOPTIONS.center = _self.vars.LATLNG;
+
+      _self.vars.map = new google.maps.Map($(_self.vars.cssID + ".gllpMap").get(0), _self.vars.MAPOPTIONS);
+      _self.vars.geocoder = new google.maps.Geocoder();
+      _self.vars.elevator = new google.maps.ElevationService();
+
+      _self.vars.marker = new google.maps.Marker({
+        position: _self.vars.LATLNG,
+        map: _self.vars.map,
+        title: _self.params.strings.markerText,
+        draggable: true
+      });
+
+      // Set position on doubleclick
+      google.maps.event.addListener(_self.vars.map, 'dblclick', function(event) {
+        setPosition(event.latLng);
+      });
+
+
+      $('#modalAgregarMarcador').on('shown.bs.modal',function(){
+        google.maps.event.trigger(_self.vars.map, "resize");
+
+      });
+
+
+
+      // Set position on marker move
+      google.maps.event.addListener(_self.vars.marker, 'dragend', function(event) {
+        setPosition(_self.vars.marker.position);
+      });
+
+  
+
+      // Search function by search button
+      $(_self.vars.cssID + ".gllpSearchButton").bind("click", function() {
+        performSearch( $(_self.vars.cssID + ".gllpSearchField").val(), false );
+      });
+
+
+      $(document).bind("gllp_perform_search", function(event, object) {
+        performSearch( $(object).attr('string'), true );
+      });
+
+    },
+
+
+    params : _self.params
+
+  };
+
+
+
+  return publicfunc;
+});
+  
+$(document).ready( function() {
+  if (!$.gMapsLatLonPickerNoAutoInit) {
+    $(".gllpLatlonPicker").each(function () {
+      $obj = $(document).gMapsLatLonPicker();
+      $obj.init( $(this) );
+    });
+  }
+  
+    });
+
+$(document).bind("location_changed", function(event, object) {
+  console.log("changed: " + $(object).attr('id') );
+});
+}(jQuery));
+
+    
+    function guardarElementoClave(){
+
+    $.ajax({
+      url: '{% url "guardar_elemento_clave" %}',
+      data:  $('#form_elemento').serialize(),
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+    return false;
+  }
+  function guardarUbicacionClave(){
+    programa=$("#programa").val();
+    ciudad=$("#ciudad").val();
+    latitud=$("#latitud").val();
+    longitud=$("#longitud").val();
+    $.ajax({
+      url: '{% url "guardar_ubicacion_implementacion" %}',
+
+      data: {
+                        'programa': programa,      
+                        'ciudad': ciudad,
+                        'latitud': latitud,
+                        'latitud': longitud,
+                        'csrfmiddlewaretoken': '{{csrf_token}}'
+      },
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+    return false;
+  }
+    function eliminarElementoClave(){
+        var names = [];
+        $('#listElementos label input:checked').each(function() {
+            names.push(this.value);
+        });
+    $.ajax({
+      url: '{% url "eliminar_elemento_clave" %}',
+      data: {
+        'lista_elementos': names,
+        'csrfmiddlewaretoken': '{{csrf_token}}'
+      },
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+
+    return false;
+  }
+    function eliminarUbicacionImplementacion(){
+        var names_ubicaciones = [];
+        $('#listUbicaciones label input:checked').each(function() {
+            names_ubicaciones.push(this.value);
+        });
+    $.ajax({
+      url: '{% url "eliminar_ubicacion_implementacion" %}',
+      data: {
+        'lista_ubicaciones': names_ubicaciones,
+        'csrfmiddlewaretoken': '{{csrf_token}}'
+      },
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+
+    return false;
+  }
+
+  function eliminarRecursoClave(){
+        var names = [];
+        $('#listRecursos label input:checked').each(function() {
+            names.push(this.value);
+        });
+    $.ajax({
+      url: '{% url "eliminar_recurso_clave" %}',
+      data: {
+        'lista_recursos_claves': names,
+        'csrfmiddlewaretoken': '{{csrf_token}}'
+      },
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+
+    return false;
+  }
+
+  </script>
+  {% endblock js %}

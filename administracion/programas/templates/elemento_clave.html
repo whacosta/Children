@@ -1,0 +1,682 @@
+{% extends "starter.html" %}
+{% load static %}
+{% block css %}
+
+  <!-- modales para la página de elememtos claves -->
+  <link href="{% static 'dist/main/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dist/main/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static 'dist/main/plugins/dropify-master/dist/css/dropify.min.css' %}">
+  <link href="{% static 'dist/main/plugins/icheck/css/skins/all.css' %}" rel="stylesheet" type="text/css">
+
+{% endblock %}
+  
+    {% block contenido %}
+    <!-- CONTENT STARTS -->
+    <div class="content">
+      <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href="{% url 'programa' programa=programa.slug %}">{{programa.nombre}}</a></li>
+            <li class="active">{{elemento.nombre | capfirst }}</li>
+          </ol>
+        </div><!-- /.breadcrumb-wrapper -->
+
+        <div class="page-title-wrapper">
+          <h2 class="page-title">{{elemento.nombre | capfirst }}</h2>
+        </div><!-- /.page-titile-wrapper -->
+      <!-- /.page-titile-wrapper -->
+
+      <div class="row">
+        <div class="col-sm-12">
+
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-4 m-w-210-px">
+                <ul class="nav nav-tabs solid-tabs nav-stacked rounded">
+                  <li class="active">
+                    <a href="#tabResultadosAprendizaje" data-toggle="tab">
+                              <i class="fa fa-home m-right-10"></i> Resultados de aprendizaje
+                            </a>
+                  </li>
+                  <li>
+                    <a href="#tabCasas" data-toggle="tab">
+                              <i class="fa fa-user m-right-10"></i> Casas
+                            </a>
+                  </li>
+                  <li>
+                    <a href="#tabTienda" data-toggle="tab">
+                              <i class="fa fa-info-circle m-right-10"></i> Tienda
+                            </a>
+                  </li>
+                </ul>
+              </div>
+              <!-- /.col-sm-3 -->
+              <div class="tab-content">
+                <!-- TAB RESULTADOS DE APRENDIZAJE-->
+                <div class="col-sm-8 tab-pane fade in active" id="tabResultadosAprendizaje">
+                  <div class="tab-content">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded">
+                                <i class="fa fa-trash"></i>
+                                <a data-toggle="modal" data-target="#modalEliminarResultadoAprendizaje">Eliminar</a>
+                              </button>
+
+                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded" style="margin-left:12px">
+                                <i class="fa fa-plus"></i>
+                                <a data-toggle="modal" data-target="#modalAgregarResultado">Agregar Resultado de Aprendizaje</a>
+                              </button>
+                        <!--<div class="panel-title">List Group</div>-->
+                      </div>
+                      <!-- /.panel-heading -->
+                      <!--<div class="tab-pane active fade in" id="tab-stacked-home3Rounded">-->
+                      <div class="panel-body">
+                              <div class="list-group m-bottom-30">
+                                   <div class="form-group list-ec" id="listResultados">
+                                  {% if resultados %}
+                                  {% for result in resultados %}
+                                  <label>
+                                    
+                                    <input type="checkbox" class="icheck-minimal-grey" name="lista_resultados[]" value="{{result.pk}}" >
+                                    <a href="#" class="list-group-item" style="width:80%">{{result.resultado}}</a>
+                                    <button type="button" class="btn btn-info-outline" style="margin-left:2%">
+                                       <a href="javascript:void(0)" onclick="editar('{{result.id}}')" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></a>
+                                    </button>
+                                   
+                                  </label> 
+                                  {% endfor %}
+                                  {% else %}
+                                  <label>
+                                    No hay resultados de aprendizaje asociados a este elemento
+                                  </label>
+                                  {% endif %} 
+                                </div>
+                              </div>
+                      </div>
+
+                      <!-- Modal Eliminar -->
+                      <div class="modal fade" id="modalEliminarResultadoAprendizaje" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Eliminar Resultado de Aprendizaje</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <h4>¿Est&aacute; seguro que desea eliminar los resultados seleccionados?</h4>
+                              <p>Una vez realizada esta acci&oacute;n no podr&aacute; recuperar los datos eliminados
+                              </p>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" onclick="eliminarResultadoAprendizaje();"  class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            
+                            </div>
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+                      <!-- Modal Agregar -->
+                      <div class="modal fade" id="modalAgregarResultado" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Agregar Resultado de Aprendizaje</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                                        <form id="form_resultado" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return guardarResultadoAprendizaje();">{% csrf_token %}
+                                    {% if formulario_resultado %}
+                                  
+
+                                     <div class="">
+                                      
+                                      <div class="input-group input-icon-right">
+                                          <div class="radio">
+                                              <label>
+                                               <input type="hidden" name="elemento" id="elemento" value="{{elemento.nombre }}">
+                                              </label>
+                                            </div>          
+                                      </div>
+                                    </div><!-- /.form-group -->
+
+                                {{ formulario_resultado.nivel.errors }}
+                                  <div class="">
+                                    <label for="{{ formulario_resultado.name }}">{{ formulario_resultado.nivel.label }}</label> 
+                                    <div class="input-group input-icon-right">
+                                    <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                                    {{ formulario_resultado.nivel }}
+                                      <i class="fa fa-times input-icon none"></i>
+                                    </div>
+                                  </div>
+
+                                  {{ formulario_resultado.resultado.errors }}
+                                  <div class="">
+                                    <label for="{{ formulario_resultado.name }}">{{ formulario_resultado.resultado.label }}</label> 
+                                    <div class="input-group input-icon-right">
+                                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                    {{ formulario_resultado.resultado }}
+                                      <i class="fa fa-times input-icon none"></i>
+                                    </div>
+                                  </div>
+
+
+                                  {{ formulario_resultado.orden.errors }}
+                                  <div class="">
+                                    <label for="{{ formulario_resultado.name }}">{{ formulario_resultado.orden.label }}</label> 
+                                    <div class="input-group input-icon-right">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    {{ formulario_resultado.orden }}
+                                      <i class="fa fa-times input-icon none"></i>
+                                    </div>
+                                  </div>
+                                 
+                               {% endif %}
+                                </br>
+                                     <div class="modal-footer">
+
+                                      <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+                        
+                                      <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                 </form>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+
+                      <!--</div>-->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+                  <!-- /.col-sm-8 -->
+                </div>
+                <!-- /.row -->
+                <!-- FINAL TAB RESULTADOS DE APRENDIZAJE -->
+
+                <!-- TAB CASAS -->
+                <div class="col-sm-8 tab-pane fade" id="tabCasas">
+                  <div class="tab-content">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded">
+                                <i class="fa fa-trash"></i>
+                                <a data-toggle="modal" data-target="#modalEliminarCasa">Eliminar</a>
+                              </button>
+
+                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded" style="margin-left:12px">
+                                <i class="fa fa-plus"></i>
+                                <a data-toggle="modal" data-target="#modalAgregarCasa">Agregar Casa</a>
+                              </button>
+                        <!--<div class="panel-title">List Group</div>-->
+                      </div>
+                      <!-- /.panel-heading -->
+                      <!--<div class="tab-pane active fade in" id="tab-stacked-home3Rounded">-->
+                      <div class="panel-body">
+                        <div class="list-group m-bottom-30">
+                          <div class="form-group list-ec" id="listCasas">
+                            {% if casas %}
+                            {% for casa in casas %}
+                            <label>
+                              <input type="checkbox" class="icheck-minimal-grey" name="lista_casas[]" value="{{casa.pk}}" >
+                              <a href="{% url 'casa' programa=programa.slug elemento_clave=elemento.slug casa=casa.slug %}" class="list-group-item" style="width:80%">{{casa.nombre}}</a>
+                               <button type="button" class="btn btn-info-outline" style="margin-left:2%">
+                                 <a href="javascript:void(0)" onclick="editar('{{casa.id}}')" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></a>
+                              </button>
+                            </label>
+                            {% endfor %}
+                            {% else %}
+                            <label> No hay recursos claves asociados a este programa</label>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal Casa -->
+                      <div class="modal fade" id="modalEliminarCasa" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Eliminar Casa</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <h4>¿Est&aacute; seguro que desea eliminar las casas seleccionadas?</h4>
+                              <p>Una vez realizada esta acci&oacute;n no podr&aacute; recuperar los datos eliminados
+                              </p>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" onclick="eliminarCasa();" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                            </div>
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+                      <!-- Modal Agregar -->
+                      <div class="modal fade" id="modalAgregarCasa" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Agregar Casa</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <form id="form_casa" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return guardarCasa();">{% csrf_token %}
+                                    {% if formulario_casa %}
+                                  
+
+                                     <div class="">
+                                      
+                                      <div class="input-group input-icon-right">
+                                          <div class="radio">
+                                              <label>
+                                               <input type="hidden" name="elemento" id="elemento" value="{{elemento.nombre }}">
+                                              </label>
+                                            </div>          
+                                      </div>
+                                    </div><!-- /.form-group -->
+
+                                {{ formulario_casa.nombre.errors }}
+                                  <div class="">
+                                    <label for="{{ formulario_casa.name }}">{{ formulario_casa.nombre.label }}</label> 
+                                    <div class="input-group input-icon-right">
+                                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                    {{ formulario_casa.nombre}}
+                                      <i class="fa fa-times input-icon none"></i>
+                                    </div>
+                                  </div>
+
+      
+
+                                  {{ formulario_casa.orden.errors }}
+                                  <div class="">
+                                    <label for="{{ formulario_casa.name }}">{{ formulario_casa.orden.label }}</label> 
+                                    <div class="input-group input-icon-right">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    {{ formulario_casa.orden }}
+                                      <i class="fa fa-times input-icon none"></i>
+                                    </div>
+                                  </div>
+                                 
+                               {% endif %}
+                                </br>
+                                     <div class="modal-footer">
+
+                                      <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+                        
+                                      <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                 </form>
+                                  </div><!-- .modal-body -->
+
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+                      <!--</div>-->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+                  <!-- /.col-sm-8 -->
+                </div>
+                <!-- /.row -->
+                <!-- FINAL TAB CASAS-->
+
+                <!-- TAB TIENDA -->
+                <div class="col-sm-8 tab-pane fade" id="tabTienda">
+                  <div class="tab-content">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                       <button class="btn btn-default-outline btn-labeled-left btn-xs rounded">
+                                <i class="fa fa-trash"></i>
+                                <a data-toggle="modal" data-target="#modalEliminarPersonalizacion">Eliminar</a>
+                              </button>
+                               <button class="btn btn-default-outline btn-labeled-left btn-xs rounded" style="margin-left:12px">
+                                <i class="fa fa-plus"></i>
+                                <a data-toggle="modal" data-target="#modalAgregarPersonalizacion">Agregar Personalidad</a>
+                              </button>
+                        <!--<div class="panel-title">List Group</div>-->
+                      </div>
+                      <!-- /.panel-heading -->
+                      <!--<div class="tab-pane active fade in" id="tab-stacked-home3Rounded">-->
+                      <div class="panel-body">
+                        <div class="list-group m-bottom-30">
+                          <div class="form-group list-ec" id="listPersonalizaciones">
+                            {% if tienda %}
+                            {% for personalizacion in  tienda %}
+                            <label>
+                              <input type="checkbox" class="icheck-minimal-grey" name="lista_personalizaciones[]" value="{{personalizacion.pk}}" >
+                              <a href="#" class="list-group-item" style="width:80%">{{personalizacion.personalidad}}</a>
+                                <button type="button" class="btn btn-info-outline" style="margin-left:2%">
+                                 <a href="javascript:void(0)" onclick="editar('{{personalizacion.id}}')" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></a>
+                              </button>
+                            </label>
+                            {% endfor %}
+                            {% else %}
+                            <label> No existen personalizaciones en esta tienda</label>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal Eliminar personalizacion -->
+                      <div class="modal fade" id="modalEliminarPersonalizacion" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Eliminar Personalizaci&oacute;n de la Tienda</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                              <h4>¿Est&aacute; seguro que desea eliminar las personalizaciones seleccionados?</h4>
+                              <p>Una vez realizada esta acci&oacute;n no podr&aacute; recuperar los datos eliminados
+                              </p>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" onclick="eliminarTienda();"  class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                            </div>
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+                      <!-- Modal Agregar -->
+                      <div class="modal fade" id="modalAgregarPersonalizacion" tabindex="-1">
+                        <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                    </button>
+                              <h4 class="modal-title">Agregar Personalidad</h4>
+                            </div>
+                            <!-- .modal-header -->
+
+                            <div class="modal-body">
+                           <form method="POST" enctype="multipart/form-data" action='{% url "elemento_clave" programa=programa.slug elemento_clave=elemento.slug %}'> 
+                                  {% csrf_token %}
+                                  {{ form.as_p }}
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                                      <button type="submit" class="btn btn-primary">Aceptar</button>
+                                    </div>
+                                  </form>
+                            </div>
+                            <!-- .modal-body -->
+
+                            <!-- .modal-footer -->
+                          </div>
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+
+
+                      <!--</div>-->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+                  <!-- /.col-sm-8 -->
+                </div>
+                <!-- /.row -->
+                <!-- FINAL TAB MAPA -->
+
+              </div>
+            </div>
+            <!-- /.panel-body -->
+
+          </div>
+          <!-- /.col-sm-12 -->
+        </div>
+        <!-- /.row -->
+
+      <!-- CONTENT ENDS -->
+    {% endblock %}
+    
+<div  class="chat">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropup">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Chat
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">
+                Clubes abiertos
+              </li><!-- /.dropdown-header -->
+
+              <li class="chat-mediano">
+                <ul class="list-dropdown-content list-dropdown-messages">
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-1">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            
+                            <strong class="text-primary">Club # 1</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-2">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            
+                            <strong class="text-primary">Club # 2</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club ">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-3">
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <strong class="text-primary">Club # 3</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-4">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <strong class="text-primary">Club # 4</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li><!-- /.dropdown -->
+     </ul>
+    </div>
+    {% block js %}
+
+    <!-- REQUIRED SCRIPTS -->
+    <script src="{% static 'dist/main/js/jquery.min.js' %}"></script>
+    <script src="{% static 'dist/main/js/bootstrap.min.js' %}"></script>
+    <!-- REQUIRED PLUGINS -->
+    <script src="{% static 'dist/main/plugins/jquery.slimscroll/js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jquery.succinct/js/jquery.succinct.min.js' %}"></script>
+    <!-- main.min.js - WISEBOARD CORE SCRIPT -->
+    <script src="{% static 'dist/main/js/main.min.js' %}"></script>
+    <!-- admin.min.js - GENERAL CONFIGURATION SCRIPT FOR THE PAGES -->
+    <script src="{% static 'js/admin.js' %}"></script>
+
+
+    <!-- script para la página de aflatoun -->
+    <script src="{% static 'dist/main/plugins/bootstrap-sweetalert/js/sweetalert.min.js' %}"></script>
+    <script type="text/javascript">
+      $('.hola').click(function(){
+        swal("Here's a message!");
+      });
+    function guardarResultadoAprendizaje(){
+
+    $.ajax({
+      url: '{% url "guardar_resultado_aprendizaje" %}',
+      data:  $('#form_resultado').serialize(),
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+    return false;
+    }
+    function eliminarResultadoAprendizaje(){
+        var resultados = [];
+        $('#listResultados label input:checked').each(function() {
+            resultados.push(this.value);
+        });
+    $.ajax({
+      url: '{% url "eliminar_resultado_aprendizaje" %}',
+      data: {
+        'lista_resultados': resultados,
+        'csrfmiddlewaretoken': '{{csrf_token}}'
+      },
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+
+    return false;
+    }
+    function guardarCasa(){
+
+    $.ajax({
+      url: '{% url "guardar_casa" %}',
+      data:  $('#form_casa').serialize(),
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+    return false;
+    }
+    function eliminarCasa(){
+        var casas = [];
+        $('#listCasas label input:checked').each(function() {
+            casas.push(this.value);
+        });
+    $.ajax({
+      url: '{% url "eliminar_casa" %}',
+      data: {
+        'lista_casas': casas,
+        'csrfmiddlewaretoken': '{{csrf_token}}'
+      },
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+
+    return false;
+    }
+    function eliminarTienda(){
+        var tiendas = [];
+        $('#listPersonalizaciones label input:checked').each(function() {
+            tiendas.push(this.value);
+        });
+    $.ajax({
+      url: '{% url "eliminar_tienda" %}',
+      data: {
+        'lista_tiendas': tiendas,
+        'csrfmiddlewaretoken': '{{csrf_token}}'
+      },
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+
+    return false;
+    }
+
+    </script>
+{% endblock  %}

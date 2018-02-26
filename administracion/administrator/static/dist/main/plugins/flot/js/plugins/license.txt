@@ -1,4 +1,0 @@
-* * *
-Copyright (c) 2011-2016 Krzysztof Urbas (@krzysu).
-
-__jquery.flot.tooltip__ is available under the MIT license.

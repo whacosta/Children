@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Interactivo</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div id="login" class="content login center-block">
+		<div class="row logo">
+			<img src="img/logo-children.png" alt="Children International" class="img-responsive center-block">
+		</div>
+		<form>
+			<div class="row center-block codigo">
+		  		<input type="number" class="form-control" required="" placeholder="Escriba su código aquí">
+			</div>
+			<div class="row ayuda">
+				<a href="#">¿Necesitas ayuda?</a>
+			</div>
+			<button type="button" onclick="start()" class="center-block btn btn-primary btn-lg">Ingresar</button>
+		</form>
+
+		<img src="img/llamas.png" alt="" width="500">
+	</div>
+	<script type="text/javascript">
+		function start(){
+			var codigo = document.querySelector(".form-control");
+			if (codigo.value) {
+				console.log("Validando Código: "+codigo.value);
+				location.href = "game.html";
+			}else{
+				alert("Por favor Ingrese su Código");
+			}
+
+		}
+	</script>
+</body>
+</html>

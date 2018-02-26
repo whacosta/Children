@@ -1,0 +1,305 @@
+{% extends "starter.html" %}
+{% load static %}
+{% block css %}
+
+  <!-- modales para la página de clubes -->
+  <link href="{% static 'dist/main/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dist/main/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static 'dist/main/plugins/dropify-master/dist/css/dropify.min.css' %}">
+  <link href="{% static 'dist/main/plugins/icheck/css/skins/all.css' %}" rel="stylesheet" type="text/css">
+
+{% endblock %}
+  
+    
+      <!-- CONTENT STARTS -->
+      {% block contenido %}
+        <!-- CONTENT STARTS -->
+      <div class="content">
+         <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href="{% url 'programa' programa=programa.slug %}">{{programa.nombre}}</a></li>
+            <li><a href="{% url 'elemento_clave' programa=programa.slug elemento_clave=elemento.slug %}">{{elemento.nombre | capfirst }}</a></li>
+             <li><a href="{% url 'casa' programa=programa.slug elemento_clave=elemento.slug  casa=casa.slug %}">{{casa.nombre | capfirst }}</a></li>
+            <li class="active">{{actividad.nombre | capfirst }}</li>
+          </ol>
+        </div><!-- /.breadcrumb-wrapper -->
+
+        <div class="page-title-wrapper">
+          <h2 class="page-title">Lista de Recursos</h2>
+        </div><!-- /.page-titile-wrapper -->
+
+
+         <div class="panel-body">
+            <div class="row">
+              <!-- /.col-sm-3 -->
+              <div class="tab-content">                   
+ 					    <!-- TAB RECURSOS -->
+		                <div class="col-sm-8 tab-pane fade in active" id="tabRecursos">
+		                  <div class="tab-content">
+		                    <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded">
+		                                <i class="fa fa-trash"></i>
+		                                <a data-toggle="modal" data-target="#modalEliminarRecurso">Eliminar</a>
+		                              </button>
+
+		                        <button class="btn btn-default-outline btn-labeled-left btn-xs rounded" style="margin-left:12px">
+		                                <i class="fa fa-plus"></i>
+		                                <a data-toggle="modal" data-target="#modalAgregarRecurso">Agregar Recurso</a>
+		                              </button>
+		                        <!--<div class="panel-title">List Group</div>-->
+		                      </div>
+		                      <!-- /.panel-heading -->
+		                      <!--<div class="tab-pane active fade in" id="tab-stacked-home3Rounded">-->
+		                      <div class="panel-body">
+		                        <div class="list-group m-bottom-30">
+		                              <div class="form-group list-ec" id="listRecursos">
+			                            {% if recursos_claves %}
+			                            {% for r in recursos_claves %}
+			                            <label>
+			                              
+			                              <input type="checkbox" class="icheck-minimal-grey" name="lista_recursos[]" value="{{r.pk}}" >
+			                              <a href="#" class="list-group-item" style="width:80%">{{r.nombre}}</a>
+			                              <button type="button" class="btn btn-info-outline" style="margin-left:2%">
+			                                 <a href="javascript:void(0)" onclick="editar('{{r.id}}')" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></a>
+			                              </button>
+			                             
+			                            </label> 
+			                            {% endfor %}
+			                            {% else %}
+			                            <label>
+			                              No hay recursos asociados a esta actividad
+			                            </label>
+			                            {% endif %} 
+			                          </div>
+		                        </div>
+		                      </div>
+
+		                      <!-- Modal Eliminar Recurso-->
+		                      <div class="modal fade" id="modalEliminarRecurso" tabindex="-1">
+		                        <div class="modal-dialog modal-md">
+		                          <div class="modal-content">
+		                            <div class="modal-header">
+		                              <button type="button" class="close" data-dismiss="modal">
+		                                      <span>&times;</span>
+		                                    </button>
+		                              <h4 class="modal-title">Eliminar Recurso</h4>
+		                            </div>
+		                            <!-- .modal-header -->
+
+		                            <div class="modal-body">
+		                              <h4>¿Est&aacute; seguro que desea eliminar los recursos seleccionados?</h4>
+		                              <p>Una vez realizada esta acci&oacute;n no podr&aacute; recuperar los datos eliminados
+		                              </p>
+		                            </div>
+		                            <!-- .modal-body -->
+
+		                            <div class="modal-footer">
+		                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		                               <button type="button" onclick="eliminarRecursoActividad();"  class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+		                            </div>
+		                            <!-- .modal-footer -->
+		                          </div>
+		                        </div>
+		                        <!-- /.modal-dialog -->
+		                      </div>
+		                      <!-- /.modal -->
+
+		                      <!-- Modal Agregar -->
+		                      <div class="modal fade" id="modalAgregarRecurso" tabindex="-1">
+		                        <div class="modal-dialog modal-md">
+		                          <div class="modal-content">
+		                            <div class="modal-header">
+		                              <button type="button" class="close" data-dismiss="modal">
+		                                      <span>&times;</span>
+		                                    </button>
+		                              <h4 class="modal-title">Agregar Recurso</h4>
+		                            </div>
+		                            <!-- .modal-header -->
+
+		                            <div class="modal-body">
+		                              <form method="POST" enctype="multipart/form-data" action='{% url "recurso_actividad" programa=programa.slug elemento_clave=elemento.slug casa=casa.slug actividad=actividad.slug %}'> 
+			                            {% csrf_token %}
+			                            {{ form.as_p }}
+			                            <div class="modal-footer">
+		                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+		                                  <button type="submit" class="btn btn-primary">Aceptar</button>
+		                                </div>
+			                            </form>
+		                            </div>
+		                            <!-- .modal-body -->
+
+		                            <!-- .modal-footer -->
+		                          </div>
+		                        </div>
+		                        <!-- /.modal-dialog -->
+		                      </div>
+		                      <!-- /.modal -->
+
+
+		                      <!--</div>-->
+		                    </div>
+		                    <!-- /.tab-content -->
+		                  </div>
+		                  <!-- /.col-sm-8 -->
+		                </div>
+		                <!-- /.row -->
+		                <!-- FINAL TAB RECURSOS -->
+
+
+                      <!--</div>-->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+                  <!-- /.col-sm-8 -->
+                </div>
+                <!-- /.row -->
+            </div>
+         </div>
+         <!-- CONTENT ENDS -->
+
+
+
+      <!-- /.modal-footer -->
+    </div>       
+
+      {% endblock %}
+      <!-- CONTENT ENDS -->
+    
+    <!-- CONTENT WRAPPER ENDS -->
+
+
+    <div  class="chat">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropup">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Chat
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">
+                Clubes abiertos
+              </li><!-- /.dropdown-header -->
+
+              <li class="chat-mediano">
+                <ul class="list-dropdown-content list-dropdown-messages">
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-1">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            
+                            <strong class="text-primary">Club # 1</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-2">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            
+                            <strong class="text-primary">Club # 2</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club ">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-3">
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <strong class="text-primary">Club # 3</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+
+                  <li class="club">
+                    <a href="#" data-click="prevent">
+                      <div class="media">
+                        <div class="media-left club-4">
+                            </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">
+                            <strong class="text-primary">Club # 4</strong>
+                          </h6>
+                          
+                        </div>
+                      </div><!-- /.media -->
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li><!-- /.dropdown -->
+     </ul>
+    </div>
+{% block js %}
+    <!-- REQUIRED SCRIPTS -->
+    <script src="{% static 'dist/main/js/jquery.min.js' %}"></script>
+    <script src="{% static 'dist/main/js/bootstrap.min.js' %}"></script>
+    <!-- REQUIRED PLUGINS -->
+    <script src="{% static 'dist/main/plugins/jquery.slimscroll/js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jquery.succinct/js/jquery.succinct.min.js' %}"></script>
+    <!-- main.min.js - WISEBOARD CORE SCRIPT -->
+    <script src="{% static 'dist/main/js/main.min.js' %}"></script>
+    <!-- admin.min.js - GENERAL CONFIGURATION SCRIPT FOR THE PAGES -->
+    <script src="{% static 'js/admin.js' %}"></script>
+
+
+    <!-- script para la página de actividades -->
+    <script src="{% static 'dist/main/plugins/bootstrap-sweetalert/js/sweetalert.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/bootstrap-wizard/js/jquery.bootstrap.wizard.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jquery.validate/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/icheck/js/icheck.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/select2/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'js/demo-form-wizard-with-validation.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jasny-bootstrap/js/fileinput.js' %}"></script>
+
+
+  
+
+    <script type="text/javascript">
+     function eliminarRecursoActividad(){
+        var recursos= [];
+        $('#listRecursos label input:checked').each(function() {
+            recursos.push(this.value);
+        });
+    $.ajax({
+      url: '{% url "eliminar_recurso_actividad" %}',
+      data: {
+        'lista_recursos_actividad': recursos,
+        'csrfmiddlewaretoken': '{{csrf_token}}'
+      },
+      type: 'post',
+      success : function(data){
+          if(data==1)
+             location.reload();
+           else
+            alert("error")
+      }
+    })
+
+    return false;
+  }
+
+    </script>
+
+{% endblock %}

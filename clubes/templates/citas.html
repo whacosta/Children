@@ -1,0 +1,570 @@
+{% extends "starter.html" %}
+{% load static %}
+
+{% block css %}
+
+  <link href="{% static 'dist/main/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+
+  <link href="{% static 'dist/main/plugins/fullcalendar/css/fullcalendar.min.css' %}" rel="stylesheet" type="text/css">
+
+
+  <!-- REQUIRED PLUGINS -->
+  <link href="{% static 'dist/main/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css">
+  <!-- main.min.css - WISEBOARD CORE CSS -->
+  <link href="{% static 'dist/main/css/main.min.css' %}" rel="stylesheet" type="text/css">
+  <!-- plugins.min.css - ALL PLUGINS CUSTOMIZATIONS -->
+  <link href="{% static 'dist/main/css/plugins.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dist/main/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dist/main/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'dist/main/plugins/icheck/css/skins/all.css' %}" rel="stylesheet" type="text/css">
+     <style type="text/css">
+     .add-button{
+        border-style: solid;
+        color: #fff;
+        border-color: #4dacdb;
+        background-color: #5ebdec;
+        font-size: 13px;
+        
+     }
+     .pendientes,.fc-event{
+        cursor: pointer;
+     }
+     .fa-3{
+        font-size: 4em;
+     }
+     .list-steps{
+        margin-bottom: 10px !important;
+     }
+     .ml-1{
+      margin-left: 10px;
+     }
+   </style>
+
+{% endblock %}
+
+	<!-- CONTENT STARTS -->
+	{% block contenido %}
+      <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li><a href="dashboard1.html"><i class="fa fa-calendar"></i>Citas</a></li>
+          </ol>
+        </div><!-- /.breadcrumb-wrapper -->
+    <div class="content">
+
+        <div class="page-title-wrapper">
+          <h2 class="page-title">Todas las citas</h2>
+        </div><!-- /.page-titile-wrapper -->
+
+    	<div class="row">
+       
+				<div class="col-sm-3">
+          {% if request.user.role != 3 %}
+          <a class="btn btn-primary" data-toggle="modal" data-target="#nueva-cita">
+              <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+             Agregar nueva cita
+          </a>
+          {% endif %}
+            <!-- Lista de citas pendientes -->
+            <ul class="list-group" id="calendar-events">
+              <li class="list-group-item list-group-item-success">Citas pendientes</li>
+              {% for cita in citas_pendientes %}
+                <li onclick="mostraCitaPorID('{{cita.pk}}')" class="list-group-item pendientes">{{cita.evento}}</li>
+              {% endfor %}
+            </ul>
+        </div><!-- /.col-sm-3 -->
+
+           <div class="col-sm-9">
+              <div class="m-top-30" id="calendar"></div>
+            </div><!-- /.col-sm-9 -->
+
+        </div>
+
+    
+
+	</div>
+
+         <!-- Formulario oculto de nueva cita -->
+         {% if request.user.role != 3 %}
+        <div class="modal fade" id="nueva-cita" tabindex="-1">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">×</button>
+                  <h4 class="modal-title">Nueva cita</h4>
+                </div><!-- /.modal-header -->
+               
+                <form id="form_cita" method="POST" class="form-horizontal">{% csrf_token %}
+
+                 {% if form_cita %}
+                <div class="modal-body">
+
+                  <ul class="list-steps list-steps-success">
+                    <li class="col-sm-5 col-sm-offset-1 step-item-rect active">
+                      <a href="#rect-one" data-toggle="tab">
+                        <span>1</span>
+                        <span>Clubes</span>
+                      </a>
+                    </li>
+                    <li class="col-sm-5 col-sm-offset-1 step-item-rect">
+                      <a href="#rect-two" data-toggle="tab">
+                        <span>2</span>
+                        <span>Cita</span>
+                      </a>
+                    </li>
+                  </ul>
+
+                  <div class="row">
+                      <div class="tab-content col-sm-6 col-sm-offset-2">
+
+                        <div class="tab-pane active" id="rect-one">
+
+                          {% for programa in programas_clubes%}
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#{{programa.programa.slug}}">{{programa.programa}}</a>
+                              </h4>
+                            </div>
+                            <div id="{{programa.programa.slug}}" class="panel-collapse collapse">
+                              <div class="list-group ml-1">
+                                        {% for club in programa.clubes%}
+                                            <div class="checkbox">
+                                              <label>
+                                                <input type="checkbox" value="{{club.pk}}" name="club" class="checkbox-club">
+                                                {{club}}
+                                              </label>
+                                            </div>
+                                        {%endfor%}
+                              </div>
+                            </div>
+                          </div>
+                          {%endfor%}
+
+                        </div><!-- /.tab-pane -->
+
+
+                        <div class="tab-pane" id="rect-two">
+
+                          <div class="form-group m-bottom-30">
+                            <label for="nombre" class="control-label col-sm-5">Día</label>
+                            <div class="col-sm-7">
+                               {{ form_cita.dia }}
+                            </div>
+                          </div><!-- /.form-group -->
+                          <div class="form-group m-bottom-30">
+                            <label for="nombre" class="control-label col-sm-5">Evento</label>
+                            <div class="col-sm-7">
+                                {{ form_cita.evento }}
+                            </div>
+                          </div><!-- /.form-group -->
+                          <div class="form-group m-bottom-30">
+                            <label for="nombre" class="control-label col-sm-5">Hora inicio</label>
+                            <div class="col-sm-7">
+                              {{ form_cita.hora_inicio }}
+                            </div>
+                          </div><!-- /.form-group -->
+                          <div class="form-group m-bottom-30">
+                            <label for="nombre" class="control-label col-sm-5">Hora fin</label>
+                            <div class="col-sm-7">
+                              {{ form_cita.hora_fin }}
+                            </div>
+
+                          </div><!-- /.form-group -->
+
+                        </div><!-- /.tab-pane -->
+
+                      </div><!-- /.tab-content -->
+                    </div><!-- .row -->
+                </div><!-- .modal-body -->
+
+                <div class="modal-footer">
+                    <div class="col-sm-12">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-warning-outline btn-prev">Anterior</button>
+                        </div><!-- /.col-sm-6 -->
+
+                        <div class="col-sm-6">
+                          <button type="button" class="btn btn-block btn-info btn-next">Siguiente</button>
+                          <button type="submit" class="btn btn-block btn-success btn-finish none">Guardar cita</button>
+                        </div><!-- /.col-sm-6 -->
+                      </div><!-- /.row -->
+                    </div><!-- /.col-sm-12 -->
+                  </div><!-- /.row -->
+
+                <!-- <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                </div> --><!-- .modal-footer -->
+                {% endif %}
+                </form>
+                  
+              </div>
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+          {% endif %}
+
+          <div class="modal fade" tabindex="-1" id="info_cita" style="display: none;">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Cita</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pull-right">
+                      <a class="text-danger" href="javascript:void(0);" onclick="eliminarCita();">
+                        <i class="fa fa-calendar-times-o fa-3"></i>
+                      </a>
+                    </div>
+                    <div class="cita"></div>
+                </div><!-- /.modal-body -->
+
+                <div class="modal-footer">
+                  <button type="button" data-dismiss="modal" class="btn btn-primary">Cerrar</button>
+                </div><!-- /.modal-footer -->
+              </div>
+            </div><!-- /.modal-dialog -->
+          </div>
+{% endblock %}
+
+{% block js %}
+ <!--Scrips de la página  -->
+     <script src="{% static 'dist/main/plugins/jquery.slimscroll/js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jquery.succinct/js/jquery.succinct.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jquery.validate/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jquery-ui/js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/moment/js/moment.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/fullcalendar/js/fullcalendar.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/bootstrap-wizard/js/jquery.bootstrap.wizard.min.js' %}"></script>
+    <script src="{% static 'dist/main/plugins/jquery.validate/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static '/dist/main/plugins/icheck/js/icheck.min.js' %}"></script>
+
+    <script type="text/javascript">
+    var ID_EVENTO_ACTUAL;
+    var citas = {{citas|safe}};
+
+
+    // Bootstrap wizard default settings
+    $.fn.bootstrapWizard.defaults.tabClass = "";
+    $.fn.bootstrapWizard.defaults.previousSelector = ".btn-prev";
+    $.fn.bootstrapWizard.defaults.nextSelector = ".btn-next";
+    $.fn.bootstrapWizard.defaults.lastSelector = ".btn-finish";
+
+    $('input.checkbox-club').iCheck({
+      checkboxClass: 'icheckbox_minimal-grey',
+      radioClass: 'iradio_minimal-grey'
+    });
+
+    var wizardRect = $("#form_cita");
+    var validatorRect = wizardRect.validate({
+      // Validation rules
+      // Selecting input by name attribute
+      rules: {
+        inputName2: {
+          required: true,
+          minlength: 5
+        },
+      },
+      // Error messages
+      messages: {
+        inputName2: "Full Name is required ( at least 5 characters )",
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).closest('.form-group').addClass('has-error');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).closest('.form-group').removeClass('has-error');
+      },
+      // Class that wraps error message
+      errorClass: "help-block",
+      // Element that wraps error message
+      errorElement: "div",
+      errorPlacement: function(error, element) {
+        $(element).closest(".form-group").find('> :last-child').append(error);
+
+        // Select2 validation
+        $("select").on("change", function(){
+          var select2Valid = $(this).valid();
+          // If clicked on clear button
+          if(!select2Valid){
+            $(this).closest('.form-group').removeClass("has-success").addClass("has-error");
+          }
+        });
+
+        // For Icheck we need revalidate
+        if( $(element).is(':checkbox') || $(element).is(':radio') ){
+          $(element).on('ifChecked ifUnchecked', function(e){
+            validatorArrow.element($(element));
+          });
+        }
+      },
+      success: function(helpBlock) {
+        if( $(helpBlock).closest(".form-group").hasClass('has-error') ){
+          $(helpBlock).closest(".form-group").removeClass("has-error").addClass("has-success");
+        }
+      }
+    });
+
+    wizardRect.bootstrapWizard({
+      onTabShow: function(tab, navigation, index){
+        // Showing/hiding finish button
+        var $total = navigation.children().length;
+        var $current = index+1;
+        // If it's the last tab then hide the last button and show the finish instead
+        if($current >= $total) {
+          wizardRect.find('.btn-next').addClass("none");
+          wizardRect.find('.btn-finish').removeClass("none");
+        }else{
+          wizardRect.find('.btn-next').removeClass("none");
+          wizardRect.find('.btn-finish').addClass("none");
+        }
+      },
+      onTabClick: function(tab, navigation, index) {
+        return false;
+      },
+      onNext: function(tab, navigation, index) {
+        var valid = wizardRect.valid();
+        if(!valid) {
+          validatorRect.focusInvalid();
+          return false;
+        }
+      },
+      onLast: function(tab, navigation, index) {
+        var valid = wizardRect.valid();
+        if(!valid) {
+          validatorRect.focusInvalid();
+          return false;
+        }else{
+          alert("You have successfully finished the step wizard");
+        }
+      }
+    });
+
+
+    // Initializing Bootstrap-wizard plugin
+    wizardRect.bootstrapWizard({
+      onTabShow: function(tab, navigation, index){
+        // Showing/hiding finish button
+        var $total = navigation.children().length;
+        var $current = index+1;
+        // If it's the last tab then hide the last button and show the finish instead
+        if($current >= $total) {
+          wizardRect.find('.btn-next').addClass("none");
+          wizardRect.find('.btn-finish').removeClass("none");
+        }else{
+          wizardRect.find('.btn-next').removeClass("none");
+          wizardRect.find('.btn-finish').addClass("none");
+        }
+      },
+      onTabClick: function(tab, navigation, index) {
+        return false;
+      },
+      onNext: function(tab, navigation, index) {
+        var valid = wizardRect.valid();
+        if(!valid) {
+          validatorRect.focusInvalid();
+          return false;
+        }
+      },
+      onLast: function(tab, navigation, index) {
+        var valid = wizardRect.valid();
+        if(!valid) {
+          validatorRect.focusInvalid();
+          return false;
+        }
+      }
+    });
+
+     // Showing popup when clicked on input, not only addon
+    $("#id_hora_inicio, #id_hora_fin").on("focus", function(){
+      $(this).timepicker("showWidget");
+    })
+
+    // Bootstrap-timepicker examples
+    $('#id_hora_inicio, #id_hora_fin').timepicker();
+    	
+    	
+    $('.datepicker').datepicker();
+
+    /* initialize the calendar
+    -----------------------------------------------------------------*/
+    var myDate = new Date();
+    var currentYear = myDate.getFullYear();
+    var currentMonth = myDate.getMonth() + 1;
+    currentMonth = (currentMonth < 10) ? 0 + '' + currentMonth: currentMonth;
+
+
+    $("#calendar").fullCalendar({
+      lang: 'es',
+      header: {
+        left: "prev,next,title",
+        right: "today,month,agendaWeek,agendaDay"
+      },
+      buttonText: {
+        today: 'Today',
+        month: 'Month',
+        week:  'Week',
+        day:   'Day'
+      },
+      editable: true,
+      droppable: false, // this allows things to be dropped onto the calendar
+      eventDurationEditable: false,
+      eventStartEditable: false,
+      drop: function() {
+        // is the "remove after drop" checkbox checked?
+        if ($("#drop-remove").is(":checked")) {
+          // if so, remove the element from the "Draggable Events" list
+          $(this).remove();
+        }
+      },
+      eventLimit: true, // allow "more" link when too many events
+      eventClick: function(calEvent, jsEvent, view) {
+          ID_EVENTO_ACTUAL = calEvent.id;
+          mostrarCita(calEvent.id);
+
+      },
+    });
+
+    function mostraCitaPorID(id){
+        for(i in citas){
+          var cita = citas[i];
+
+          if (cita.id == id) {
+            mostrarCita(i);
+          }
+        }
+    }
+
+
+    function mostrarCita(index){
+        ID_EVENTO_ACTUAL = index;
+        var cita = citas[index];
+        var inicio = new Date(cita.inicio);
+        var fin = new Date(cita.final);
+        var dia = inicio.getDate()+"/"+(inicio.getMonth()+1)+"/"+inicio.getFullYear();
+
+        minutos = inicio.getMinutes() < 10 ? '0'+inicio.getMinutes() : inicio.getMinutes();
+        var hora_ini = inicio.getHours()+":"+minutos;
+        minutos = fin.getMinutes() < 10 ? '0'+fin.getMinutes() : fin.getMinutes();
+        var hora_fin = fin.getHours()+":"+minutos;
+        var clubes = jQuery.parseJSON(cita.club);
+        html_clubes="<ul>";
+        for(c in clubes){
+            club = clubes[c];
+            html_clubes += "<li>"+club+"</li>";
+        }
+        html_clubes += "</ul>";
+             
+        $("#info_cita .cita").html(
+            `<p><b>Día: </b>`+dia+`</p>`+
+            `<p><b>Clubes: </b>`+html_clubes+`</p>`+
+            `<p><b>Hora Inicial: </b>`+hora_ini+`</p>`+
+            `<p><b>Hora Final: </b>`+hora_fin+`</p>`
+        );
+        $("#info_cita .modal-title").html(cita.evento);
+        $("#info_cita").modal('toggle');
+
+    }
+
+    var eventos = [];
+    for( index in citas){
+        cita = citas[index];
+        console.log(cita.inicio);
+        console.log(cita.final);
+        eventos.push({
+            id: index,
+            title  : cita.evento,
+            start : cita.inicio,
+            end : cita.final,
+            allDay: false,
+        })
+        
+    }
+    $('#calendar').fullCalendar('addEventSource',eventos);
+
+
+    $('#form_cita').on('submit', function(event){
+        event.preventDefault();
+        guardar();
+    });
+
+    function guardar(){
+
+    var selected = [];
+    $('.checkbox input:checked').each(function() {
+        selected.push($(this).attr('value'));
+    });
+
+      $.ajax({
+        url: '{% url "guardar_cita" %}',
+        data:  $('#form_cita').serialize(),
+        type: 'post',
+        success : function(data){
+            if(data==1){
+                  swal({
+                      title: "Completado",
+                      text: "Cita guardada exitosamente!",
+                      type: "success" 
+                  },
+                  function(){
+                    console.log("Guardado");
+                    location.reload();
+                  });
+            }else{
+              swal("Error", "Problema al guardar cita, Intente nuevamente.", "error"); 
+            }
+               
+        }
+      });
+    }
+     // Función para eliminar una cita
+        function eliminarCita(){
+          swal({
+              title: "¿Seguro que desea cancelar la cita?",
+              text: "La cita será cancelada",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: '#DD6B55',
+              confirmButtonText: 'Sí',
+              cancelButtonText: "No",
+              closeOnConfirm: false,
+              closeOnCancel: true
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                  id_cita = citas[ID_EVENTO_ACTUAL].id;
+                 $('#info_cita .modal-body').block(style_bockui);
+                  $.ajax({
+                      url : '{% url "eliminar_cita" %}', 
+                      type : "post", 
+                      data : "id_cita="+id_cita+"&csrfmiddlewaretoken={{csrf_token}}",
+                      success : function(data) {
+                        $('#info_cita .modal-body').unblock();          
+                        if (data==1) {
+                          swal({ 
+                            title: "Cita cancelada",
+                            text: "La cita ha sido cancelada.",
+                            type: "success" 
+                            },
+                            function(){
+                              $("#info_cita").modal('hide');
+                                           
+                              $('#calendar').fullCalendar('removeEvents',ID_EVENTO_ACTUAL);
+                          });
+                        }
+                      
+                        else{
+                          swal("Error", "Problema al cancelar la cita, intente nuevamente.", "error"); 
+                        }
+                      }
+                  });
+
+                } 
+            });
+        }
+       
+    </script>
+{% endblock %}

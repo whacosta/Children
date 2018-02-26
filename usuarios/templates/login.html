@@ -1,0 +1,102 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/></meta>
+        <title>CI</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"></meta>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic" rel="stylesheet" type="text/css">
+        <link href="{% static 'dist/main/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+        <!-- REQUIRED PLUGINS -->
+        <link href="{% static 'dist/main/plugins/fontawesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'dist/main/plugins/icheck/css/skins/all.css' %}" rel="stylesheet" type="
+        text/css">
+        <!-- main.min.css - WISEBOARD CORE CSS -->
+        <link href="{% static 'dist/main/css/main.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/page-login2.min.css' %}" rel="stylesheet" type="text/css">
+
+    </head>
+    <body>
+
+    <div class="modal fade" id="modal-forgotPass" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h2>Forgot Password?</h2>
+            <form>
+              <div class="form-group">
+                <p>Enter your e-mail address below to reset your password.</p>
+                <div class="input-icon-left m-top-15">
+                  <i class="fa fa-envelope input-icon"></i>
+                  <input type="text" class="form-control" placeholder="Enter Email">
+                </div>
+              </div><!-- /.form-group -->
+
+              <div class="btn-wrapper">
+                <span>
+                  <button type="button" class="btn btn-default-outline btn-block rounded" data-dismiss="modal">Cancel</button>
+                </span>
+                <span>
+                  <button type="submit" class="btn btn-primary btn-block rounded">Submit</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal -->
+
+    <div class="container">
+      <div class="login-wrapper">
+     <div class="text-center">
+        <img src="{% static 'img/logo_bc.png' %}" alt="logo">
+      </div><!-- /.logo-wrapper -->
+
+      <div class="panel">
+        <div class="panel-body">
+          <h2>BC Administracion</h2>
+          <form role="form" method="post" id='NForm'>
+            {% csrf_token %}
+            <div class="form-group">
+             <div class="input-icon-left">
+              <i class="fa fa-lock input-icon"></i>
+                                    {{ form.username }}
+              </div>
+            </div><!-- /.form-group -->
+            <div class="form-group">
+              <div class="input-icon-left">
+                  <i class="fa fa-lock input-icon"></i>
+                  {{ form.password }}
+                                   
+                 
+              </div>
+            </div><!-- /.form-group -->
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="icheck-minimal-grey">
+                  Remember me
+                </label>
+              </div>
+            </div><!-- /.form-group -->
+
+            <button type="submit" class="btn btn-primary btn-block rounded">SIGN IN</button>
+            <a href="#" class="m-top-5" data-toggle="modal" data-target="#modal-forgotPass">Forgot Password?</a>
+          </form>
+        </div><!-- /.panel-body -->
+
+        <div class="panel-footer">
+          <a href="page-register2.html">CREATE AN ACCOUNT</a>
+        </div><!-- /.panel-footer -->
+      </div><!-- /.panel -->
+      </div>
+    </div><!-- /.container -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <script src="{% static 'dist/main/js/jquery.min.js' %}"></script>
+    <script src="{% static 'dist/main/js/bootstrap.min.js' %}"></script>
+    <!-- REQUIRED PLUGINS -->
+    <script src="{% static 'dist/main/plugins/icheck/js/icheck.min.js' %}"></script>
+    <script src="{% static 'js/page-login.min.js' %}"></script>
+  </body>
+</html>

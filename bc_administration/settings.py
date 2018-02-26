@@ -26,7 +26,7 @@ SECRET_KEY = 'd$jaq!@2bmf9ls&i^9-k6dpxt5@01o=p)nk49m5lzz14ww8)f@'
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['localhost','localhost']
+ALLOWED_HOSTS = ['bc-adm.azurewebsites.net','localhost']
 
 
 
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'usuarios',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

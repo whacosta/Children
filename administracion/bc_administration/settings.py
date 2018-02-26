@@ -26,7 +26,7 @@ SECRET_KEY = 'd$jaq!@2bmf9ls&i^9-k6dpxt5@01o=p)nk49m5lzz14ww8)f@'
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['bc-administracion.azurewebsites.net','localhost']
+ALLOWED_HOSTS = ['bc-adm.azurewebsites.net','localhost']
 
 
 

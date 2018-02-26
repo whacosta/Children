@@ -75,8 +75,8 @@ class Usuario(AbstractBaseUser):
 
 
 class UsuarioClub(models.Model):
-    club = models.ForeignKey(Club,blank=True, null=False)
-    usuario = models.ForeignKey( Usuario,blank=True, null=False)
+    club = models.ForeignKey(Club,blank=True, null=False, on_delete=models.CASCADE)
+    usuario = models.ForeignKey( Usuario,blank=True, null=False, on_delete=models.CASCADE)
     estado = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
@@ -115,32 +115,32 @@ class Nino(models.Model):
         my_age = (tod.year - dob.year) - int((tod.month, tod.day) < (dob.month, dob.day))
         return my_age
 class NinoClub(models.Model):
-    nino = models.ForeignKey(Nino,blank=True, null=False)
-    club = models.ForeignKey(Club, blank=True, null=False)
+    nino = models.ForeignKey(Nino,blank=True, null=False, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, blank=True, null=False, on_delete=models.CASCADE)
     fecha = models.DateField(blank=True, null=True)
     estado = models.IntegerField(blank=True, null=True)
     ahorro = models.IntegerField(blank=True, null=True)
 
 class ElementoNino(models.Model):
-    mundo = models.ForeignKey(ElementoClave,blank=True, null=True) #Elemento clave
-    nino = models.ForeignKey(Nino,blank=True, null=False)
+    mundo = models.ForeignKey(ElementoClave,blank=True, null=True, on_delete=models.CASCADE) #Elemento clave
+    nino = models.ForeignKey(Nino,blank=True, null=False, on_delete=models.CASCADE)
 
 class Compra(models.Model):
     nino = models.IntegerField(blank=True, null=False)
-    personalidad = models.ForeignKey(Tienda, blank=True, null=False)
+    personalidad = models.ForeignKey(Tienda, blank=True, null=False, on_delete=models.CASCADE)
 
 class Avatar(models.Model):
-    nino = models.ForeignKey(Nino,blank=True, null=False)
-    compra = models.ForeignKey(Compra, blank=True, null=False)
+    nino = models.ForeignKey(Nino,blank=True, null=False, on_delete=models.CASCADE)
+    compra = models.ForeignKey(Compra, blank=True, null=False, on_delete=models.CASCADE)
     alias = models.CharField(max_length=10, blank=True, null=True)
 
 class CasaNino(models.Model):
-    casa = models.ForeignKey(Casa,blank=True, null=False)
-    nino = models.ForeignKey(Nino, blank=True, null=False)
+    casa = models.ForeignKey(Casa,blank=True, null=False, on_delete=models.CASCADE)
+    nino = models.ForeignKey(Nino, blank=True, null=False, on_delete=models.CASCADE)
 
 class Actividad(models.Model):
     # id = models.IntegerField(blank=True, null=True)
-    casa = models.ForeignKey(Casa,blank=True, null=False, related_name='actividades')
+    casa = models.ForeignKey(Casa,blank=True, null=False, related_name='actividades', on_delete=models.CASCADE)
     nombre = models.CharField(max_length=20, blank=True, null=True)
     slug = models.SlugField(max_length=200, blank=False, null=True)
     nivel = models.IntegerField(blank=True, null=True)
@@ -159,8 +159,8 @@ class Actividad(models.Model):
 
 class ActividadNino(models.Model):
     # id = models.IntegerField(blank=True, null=True)
-    actividad = models.ForeignKey(Actividad,blank=True, null=False)
-    nino = models.ForeignKey(Nino, blank=True, null=False)
+    actividad = models.ForeignKey(Actividad,blank=True, null=False, on_delete=models.CASCADE)
+    nino = models.ForeignKey(Nino, blank=True, null=False, on_delete=models.CASCADE)
     fecha = models.DateField(blank=True, null=True)
     puntaje = models.IntegerField(blank=True, null=True)
     disponible = models.BooleanField(default=True,blank=True)

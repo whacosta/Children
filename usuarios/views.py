@@ -1,7 +1,8 @@
 #Importamos la vista genérica FormView
 from django.views.generic.edit import FormView
 from django.http.response import HttpResponseRedirect
-from django.core.urlresolvers import reverse_lazy
+#from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from .forms import FormLogin

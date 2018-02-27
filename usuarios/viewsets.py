@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from .models import Nino

@@ -6,7 +6,7 @@ import datetime
 # Create your models here.
 class Club(models.Model):
     # id = models.IntegerField(blank=True, null=True)
-    programa = models.ForeignKey(Programa, blank=True, null=False, related_name='clubes', on_delete=models.CASCADE)
+    programa = models.ForeignKey(Programa, blank=True, null=False, related_name='clubes')
     nombre = models.CharField(max_length=25, blank=True, null=True)
     slug = models.SlugField(max_length=200, blank=False, null=True)
     ahorros = models.IntegerField(blank=True, null=True)
@@ -26,20 +26,20 @@ class Club(models.Model):
         super(Club, self).save(*args, **kwargs)
 
 class Cofre(models.Model):
-    club = models.ForeignKey( Club,blank=True, null=True, on_delete=models.CASCADE)
+    club = models.ForeignKey( Club,blank=True, null=True)
     premio = models.IntegerField(blank=True, null=True)
 
 class Horariochat(models.Model):
     # id = models.IntegerField(blank=True, null=True)
-    club = models.ForeignKey( Club,blank=True, null=True, on_delete=models.CASCADE)
+    club = models.ForeignKey( Club,blank=True, null=True)
     dia = models.CharField(max_length=9, blank=True, null=True)
     hora_inicio = models.TimeField(blank=True, null=True)
     hora_fin = models.TimeField(blank=True, null=True)
     estado = models.BooleanField(default=True,blank=True)
 
 class ElementoClub(models.Model):
-    mundo = models.ForeignKey( ElementoClave ,blank=True, null=True, on_delete=models.CASCADE)
-    club = models.ForeignKey( Club,blank=True, null=True, on_delete=models.CASCADE)
+    mundo = models.ForeignKey( ElementoClave ,blank=True, null=True)
+    club = models.ForeignKey( Club,blank=True, null=True)
     color = models.CharField(max_length=10, blank=True, null=True)
 
 class Cita(models.Model):
@@ -60,8 +60,8 @@ class Cita(models.Model):
         return clubes
 
 class ClubCita(models.Model):
-    club = models.ForeignKey(Club,blank=False,null=False, on_delete=models.CASCADE)
-    cita = models.ForeignKey(Cita,blank=False, null=False, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club,blank=False,null=False)
+    cita = models.ForeignKey(Cita,blank=False, null=False)
 
     def __str__(self):
         return (str(self.club) +" - "+str(self.cita))

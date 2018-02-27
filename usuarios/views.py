@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
 #Importamos la vista genérica FormView
 from django.views.generic.edit import FormView
 from django.http.response import HttpResponseRedirect
-#from django.core.urlresolvers import reverse_lazy
-from django.urls import reverse_lazy
+from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from .forms import FormLogin
@@ -23,15 +23,15 @@ class Login(FormView):
     form_class = FormLogin
     #Le decimos que cuando se haya completado exitosamente la operación nos redireccione a la url bienvenida de la aplicación administrator
     success_url =reverse_lazy('home')
-
+    
     def dispatch(self, request, *args, **kwargs):
         #Si el usuario está autenticado entonces nos direcciona a la url establecida en success_url
-        if request.user.is_authenticated:
+        if request.user.is_authenticated():
             return HttpResponseRedirect(self.get_success_url())
         #Sino lo está entonces nos muestra la plantilla del login simplemente
         else:
             return super(Login, self).dispatch(request, *args, **kwargs)
-
+ 
     def form_valid(self, form):
         login(self.request, form.get_user())
         return super(Login, self).form_valid(form)

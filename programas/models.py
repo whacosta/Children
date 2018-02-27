@@ -27,8 +27,7 @@ class Programa(models.Model):
 
 class Ubicacionimplementacion(models.Model):
     # id = models.IntegerField(blank=True, null=True)
-    #Error: TypeError: __init__() missing 1 required positional argument: 'on_delete'
-    programa = models.ForeignKey(Programa, blank=True, null=False, on_delete=models.CASCADE)
+    programa = models.ForeignKey(Programa, blank=True, null=False)
     latitud = models.CharField(max_length=30, blank=True, null=True)
     longitud = models.CharField(max_length=30, blank=True, null=True)
     ciudad = models.CharField(max_length=30, blank=True, null=True)
@@ -52,8 +51,7 @@ class ElementoClave(models.Model):
     (5, "5"),
     )
     # id = models.IntegerField(blank=True, null=True)
-    #Error: TypeError: __init__() missing 1 required positional argument: 'on_delete'
-    programa = models.ForeignKey(Programa, blank=True, null=False, related_name='elementos_clave', on_delete=models.CASCADE)
+    programa = models.ForeignKey(Programa, blank=True, null=False, related_name='elementos_clave')
     nombre = models.CharField(max_length=30, blank=True, null=True)
 
     orden = models.PositiveSmallIntegerField(choices=ORDEN_CHOICES, null=True, blank=True, default=1)
@@ -72,7 +70,7 @@ class ElementoClave(models.Model):
 class Tienda(models.Model):
     # Se  supone que este es su pk?
     personalidad = models.CharField(max_length=10, blank=True, null=True)
-    elemento_clave = models.ForeignKey(ElementoClave, blank=True, null=True, related_name="personalidades", on_delete=models.CASCADE)
+    elemento_clave = models.ForeignKey(ElementoClave, blank=True, null=True, related_name="personalidades")
     costo = models.IntegerField(blank=True, null=True)
     archivo = models.FileField(upload_to='personalidades/', blank=True, null=True)
 
@@ -80,8 +78,7 @@ class Recurso(models.Model):
     # id = models.IntegerField(blank=True, null=True)
     nombre = models.CharField(max_length=25, blank=True, null=True)
     descripcion = models.CharField(max_length=200, blank=True, null=True)
-    #Error: TypeError: __init__() missing 1 required positional argument: 'on_delete'
-    content_type = models.ForeignKey(ContentType,blank=True, null=True, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType,blank=True, null=True)
     content_id = models.PositiveIntegerField(blank=True, null=True)
     content = GenericForeignKey('content_type', 'content_id')
     slug = models.SlugField(max_length=200, blank=False, null=True)
@@ -96,8 +93,7 @@ class Recurso(models.Model):
 
 class ResultadoDeAprendizaje(models.Model):
     # id = models.IntegerField(blank=True, null=True)
-    #Error: TypeError: __init__() missing 1 required positional argument: 'on_delete'
-    elemento_clave = models.ForeignKey(ElementoClave, blank=True, null=True, related_name="resultados_aprendizaje", on_delete=models.CASCADE)
+    elemento_clave = models.ForeignKey(ElementoClave, blank=True, null=True, related_name="resultados_aprendizaje")
     nivel = models.IntegerField(blank=True, null=True)
     resultado = models.CharField(max_length=255, blank=True, null=True)
     orden = models.IntegerField(blank=True, null=True)
@@ -105,14 +101,12 @@ class ResultadoDeAprendizaje(models.Model):
 
 class Viaje(models.Model):
     destino = models.CharField(max_length=20, blank=True, null=True)
-    #Error: TypeError: __init__() missing 1 required positional argument: 'on_delete'
-    elemento_clave = models.ForeignKey(ElementoClave, blank=True, null=True, on_delete=models.CASCADE)
+    elemento_clave = models.ForeignKey(ElementoClave, blank=True, null=True)
 
 
 class Casa(models.Model):
     # id = models.IntegerField(blank=True, null=True)
-    #Error: TypeError: __init__() missing 1 required positional argument: 'on_delete'
-    mundo = models.ForeignKey(ElementoClave, blank=True, null=True, related_name="casas", on_delete=models.CASCADE)
+    mundo = models.ForeignKey(ElementoClave, blank=True, null=True, related_name="casas")
     slug = models.SlugField(max_length=200, blank=False, null=True)
     nombre = models.CharField(max_length=20, blank=True, null=True)
     orden = models.IntegerField(blank=True, null=True)

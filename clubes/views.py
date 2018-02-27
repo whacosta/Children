@@ -1,7 +1,6 @@
 from django.views.generic.edit import FormView
 from django.http.response import HttpResponseRedirect
-#from django.core.urlresolvers import reverse_lazy
-from django.urls import reverse_lazy
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect,get_object_or_404
 from django.views.generic import TemplateView, View, ListView
 from django.http import HttpResponse
